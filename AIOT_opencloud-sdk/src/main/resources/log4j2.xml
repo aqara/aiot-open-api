@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%traceId] [%thread] %-5level %logger{36} line:%-3L -%msg%n</Property>
+        <Property name="LOG_HOME">/var/applogs</Property >
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <!-- 这个会打印出所有的信息，每次大小超过size，-->
+        <RollingFile name="RollingFile" fileName="${LOG_HOME}/opencloud-sdk.log" filePattern="${LOG_HOME}/opencloud-sdk-%d{yyyy-MM-dd}.%i.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size = "100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="50"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
