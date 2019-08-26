@@ -1,9 +1,7 @@
 package com.lumi.opencloud.manager.v1;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lumi.opencloud.common.AiotConfig;
-import com.lumi.opencloud.common.ResponseMsg;
 import com.lumi.opencloud.model.v1.request.AccessTokenRequest;
 import com.lumi.opencloud.model.v1.request.AuthorizeRequest;
 import com.lumi.opencloud.model.v1.response.AccessTokenResponse;
@@ -32,7 +30,7 @@ public class OauthManager {
             request.setResponse_type(AuthorizeRequest.RESPONSE_TYPE);
             String domain = AiotConfig.getDomain() + request.uri();
             String result = PooledHttpClientUtils.doPost(domain, request.getParamsMap(),new HashMap<>(),request.getBodyMap(),false);
-            log.info("authorize result:{},request:{}", result, JSON.toJSONString(request));
+            log.info("authorize result:{}", result);
 
             return result;
         } catch (Exception e) {
@@ -52,7 +50,7 @@ public class OauthManager {
 
             String domain = AiotConfig.getDomain() + request.uri();
             String result = PooledHttpClientUtils.doPost(domain, new HashMap<>() , request.getParamsMap(),false);
-            log.info("accessToken result:{},request:{}", result,JSON.toJSONString(request));
+            log.info("accessToken result:{}", result);
 
             AccessTokenResponse response = JSONObject.parseObject(result,AccessTokenResponse.class);
             return response;
