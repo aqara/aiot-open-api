@@ -93,7 +93,7 @@ public class MessageV1ProcessTest {
             retMap.put("result",echostr);
             log.info("明文模式返回：{}",retMap);
         }else if(securityMode == 2){
-            String dechostr = AESUtil.decryptCbc(echostr, appKey.getBytes("utf-8"));
+            String dechostr = AESUtil.decryptCbc(echostr, AESUtil.getAESKey(appKey));
             retMap.put("code",0);
             retMap.put("result",dechostr);
             log.info("加密模式返回：{}",retMap);
@@ -125,12 +125,12 @@ public class MessageV1ProcessTest {
             return;
         }
 
-        if(StringUtils.equals(msgType, OpenCloudUaConstants.PushMsgTypeV1Enum.EVENT.getDesc())){
+        if(StringUtils.equals(msgType, OpenCloudUaConstants.PushMsgTypeV1Enum.EVENT.getType())){
             EventMessageBean eventMessageBean = JSONObject.parseObject(data, EventMessageBean.class);
             log.info("msg bean:{}",eventMessageBean.toString());
         }
 
-        if(StringUtils.equals(msgType, OpenCloudUaConstants.PushMsgTypeV1Enum.RESOURCE.getDesc())){
+        if(StringUtils.equals(msgType, OpenCloudUaConstants.PushMsgTypeV1Enum.RESOURCE.getType())){
             ResourceMessageBean resourceMessageBean = JSONObject.parseObject(data, ResourceMessageBean.class);
             log.info("msg bean:{}",resourceMessageBean.toString());
         }
