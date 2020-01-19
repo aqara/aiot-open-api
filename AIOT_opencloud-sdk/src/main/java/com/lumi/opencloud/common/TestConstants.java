@@ -23,12 +23,12 @@ public class TestConstants {
 
     /**
      * request domain
-     * CN: opencloud-open-3rd.aqara.cn
-     * USA: opencloud-open-usa.aqara.com
+     * CN: aiot-open-3rd.aqara.cn
+     * USA: aiot-open-usa.aqara.com
      * KR: open-kr.aqara.com
      */
-    public static String DOMAIN_V1 = "https://opencloud-open-3rd.aqara.cn/3rd/v1.0/open";
-    public static String DOMAIN_V2 = "https://opencloud-open-3rd.aqara.cn/v2.0/open";
+    public static String DOMAIN_V1 = "https://aiot-open-3rd.aqara.cn/3rd/v1.0/open";
+    public static String DOMAIN_V2 = "https://aiot-open-3rd.aqara.cn/v2.0/open";
 	
 	/**
      * oauth
