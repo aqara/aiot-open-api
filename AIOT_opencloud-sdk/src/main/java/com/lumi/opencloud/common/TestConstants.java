@@ -51,5 +51,4 @@ public class TestConstants {
     public static String Lang = "en";
 
     public static int SecurityMode = 2;
-    
 }
