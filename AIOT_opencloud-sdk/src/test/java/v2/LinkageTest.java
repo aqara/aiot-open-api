@@ -2,13 +2,14 @@ package v2;
 
 import com.lumi.opencloud.common.AiotConfig;
 import com.lumi.opencloud.common.ResponseMsg;
-import com.lumi.opencloud.common.TestConstants;
+import com.lumi.opencloud.common.CustomConfig;
 import com.lumi.opencloud.manager.v2.LinkageManager;
 import com.lumi.opencloud.model.ifttt.ActionContent;
 import com.lumi.opencloud.model.ifttt.IftttParam;
 import com.lumi.opencloud.model.ifttt.TriggerContent;
 import com.lumi.opencloud.model.v2.request.IftttCreateRequest;
 import com.lumi.opencloud.model.v2.request.IftttUpdateRequest;
+import config.TestConfig;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,24 +25,23 @@ import java.util.List;
 public class LinkageTest {
     private static Logger log = LoggerFactory.getLogger(LinkageTest.class);
 
-    private void setClient(){
-        AiotConfig.setClientV2(TestConstants.Appid,TestConstants.Appkey,TestConstants.Lang,TestConstants.DOMAIN_V2);
+    private AiotConfig testV2Config(){
+        return new AiotConfig(CustomConfig.Appid, CustomConfig.Appkey, CustomConfig.Lang, CustomConfig.DOMAIN_V2);
     }
 
     @Test
     public void triggerDefinitionQuery() {
-        setClient();
         List<String> models = new ArrayList<>();
-        models.add(TestConstants.model);
-        ResponseMsg responseMsg = LinkageManager.triggerDefinitionQuery(models);
+        models.add(TestConfig.model);
+        ResponseMsg responseMsg = LinkageManager.triggerDefinitionQuery(testV2Config(),models);
         log.info("ifttt trigger definition query responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void actionDefinitionQuery() {
         List<String> models = new ArrayList<>();
-        models.add(TestConstants.model);
-        ResponseMsg responseMsg = LinkageManager.actionDefinitionQuery(models);
+        models.add(TestConfig.model);
+        ResponseMsg responseMsg = LinkageManager.actionDefinitionQuery(testV2Config(),models);
         log.info("ifttt action definition query responseMsg:{}",responseMsg.toString());
     }
 
@@ -70,38 +70,38 @@ public class LinkageTest {
         actionContent.setModel("");
         actions.add(actionContent);
         request.setActions(actions);
-        ResponseMsg responseMsg = LinkageManager.createIfttt(request);
+        ResponseMsg responseMsg = LinkageManager.createIfttt(testV2Config(),request);
         log.info("ifttt create responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void updateIfttt() {
         IftttUpdateRequest request = new IftttUpdateRequest();
-        ResponseMsg responseMsg = LinkageManager.updateIfttt(request);
+        ResponseMsg responseMsg = LinkageManager.updateIfttt(testV2Config(),request);
         log.info("ifttt update responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void deleteIfttt() {
-        ResponseMsg responseMsg = LinkageManager.deleteIfttt("L.601479650938064896");
+        ResponseMsg responseMsg = LinkageManager.deleteIfttt(testV2Config(),"L.601479650938064896");
         log.info("ifttt delete responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void enableIfttt() {
-        ResponseMsg responseMsg = LinkageManager.enableIfttt("L.601479650938064896",0);
+        ResponseMsg responseMsg = LinkageManager.enableIfttt(testV2Config(),"L.601479650938064896",0);
         log.info("ifttt enable responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void queryDetail() {
-        ResponseMsg responseMsg = LinkageManager.queryDetail("L.601479650938064896");
+        ResponseMsg responseMsg = LinkageManager.queryDetail(testV2Config(),"L.601479650938064896");
         log.info("ifttt query detail responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void subjectQuery() {
-        ResponseMsg responseMsg = LinkageManager.subjectQuery("L.601479650938064896");
+        ResponseMsg responseMsg = LinkageManager.subjectQuery(testV2Config(),"L.601479650938064896");
         log.info("ifttt subject query responseMsg:{}",responseMsg.toString());
     }
 }

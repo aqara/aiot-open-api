@@ -2,8 +2,9 @@ package v2;
 
 import com.lumi.opencloud.common.AiotConfig;
 import com.lumi.opencloud.common.ResponseMsg;
-import com.lumi.opencloud.common.TestConstants;
+import com.lumi.opencloud.common.CustomConfig;
 import com.lumi.opencloud.manager.v2.DeviceManager;
+import config.TestConfig;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,58 +21,51 @@ import java.util.List;
 public class DeviceTest {
     private static Logger log = LoggerFactory.getLogger(DeviceTest.class);
 
-    private void setClient(){
-        AiotConfig.setClientV2(TestConstants.Appid,TestConstants.Appkey,TestConstants.Lang,TestConstants.DOMAIN_V2);
+    private AiotConfig testV2Config(){
+       return new AiotConfig(CustomConfig.Appid, CustomConfig.Appkey, CustomConfig.Lang, CustomConfig.DOMAIN_V2);
     }
 
     @Test
     public void bindGet() {
-        setClient();
-        ResponseMsg responseMsg = DeviceManager.bindGet();
+        ResponseMsg responseMsg = DeviceManager.bindGet(testV2Config());
         log.info("bindGet responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void bindQuery() {
-        setClient();
-        ResponseMsg responseMsg = DeviceManager.bindQuery("","");
+        ResponseMsg responseMsg = DeviceManager.bindQuery(testV2Config(),"","");
         log.info("bind query responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void childQuery() {
-        setClient();
-        ResponseMsg responseMsg = DeviceManager.childQuery(TestConstants.HubDid);
+        ResponseMsg responseMsg = DeviceManager.childQuery(testV2Config(),TestConfig.HubDid);
         log.info("child query responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void connectSubdeviceStart() {
-        setClient();
-        ResponseMsg responseMsg = DeviceManager.connectSubdeviceStart(TestConstants.HubDid,"");
+        ResponseMsg responseMsg = DeviceManager.connectSubdeviceStart(testV2Config(),TestConfig.HubDid,"");
         log.info("dev connect subdevice start responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void connectSubdeviceStop() {
-        setClient();
-        ResponseMsg responseMsg = DeviceManager.connectSubdeviceStop(TestConstants.HubDid);
+        ResponseMsg responseMsg = DeviceManager.connectSubdeviceStop(testV2Config(),TestConfig.HubDid);
         log.info("dev connect subdevice stop responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void unbindDev() {
-        setClient();
-        ResponseMsg responseMsg = DeviceManager.unbindDev(TestConstants.SubDid,0);
+        ResponseMsg responseMsg = DeviceManager.unbindDev(testV2Config(),TestConfig.SubDid,0);
         log.info("dev unbind responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void detailQuery() {
-        setClient();
         List<String> dids = new ArrayList<>();
-        dids.add(TestConstants.HubDid);
-        ResponseMsg responseMsg = DeviceManager.detailQuery(dids);
+        dids.add(TestConfig.HubDid);
+        ResponseMsg responseMsg = DeviceManager.detailQuery(testV2Config(),dids);
         log.info("dev query detail responseMsg:{}",responseMsg.toString());
     }
 }

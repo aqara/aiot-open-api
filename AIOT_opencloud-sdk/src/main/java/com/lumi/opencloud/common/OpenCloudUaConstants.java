@@ -96,8 +96,8 @@ public abstract class OpenCloudUaConstants {
 
     @Getter
     public enum PushMsgTypeV1Enum{
-        EVENT("device","事件消息"),
-        RESOURCE("resource", "资源消息")
+        EVENT("device","event message"),
+        RESOURCE("resource", "resource message")
         ;
 
         private String type;

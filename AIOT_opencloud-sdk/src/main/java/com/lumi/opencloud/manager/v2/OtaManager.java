@@ -33,16 +33,15 @@ public class OtaManager extends CommonRequest {
      * @param model
      * @return
      */
-    public static ResponseMsg firmwareQuery(String model) {
+    public static ResponseMsg firmwareQuery(AiotConfig aiotConfig,String model) {
         try {
             OtaFirmwareQueryRequest request = new OtaFirmwareQueryRequest();
             request.setModel(model);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(""), request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null), request.requestMap());
             log.info("firmwareQuery result:{},request:{}", result, JSON.toJSONString(request));
 
-            ResponseMsg<List<OtaFwQueryResponse>> responseMsg = responseDecode(result,2);
-            return responseMsg;
+            return responseDecode(aiotConfig,result,2);
         } catch (Exception e) {
             log.error("firmwareQuery error:", e);
         }
@@ -55,17 +54,16 @@ public class OtaManager extends CommonRequest {
      * @param data
      * @return
      */
-    public static ResponseMsg firmwareUpgrade(List<OtaFirmwareUpgradeDetail> data) {
+    public static ResponseMsg firmwareUpgrade(AiotConfig aiotConfig,List<OtaFirmwareUpgradeDetail> data) {
         try {
             OtaFirmwareUpgradeRequest request = new OtaFirmwareUpgradeRequest();
             request.setData(data);
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("firmwareUpgrade result:{},request:{}", result, JSON.toJSONString(request));
 
-            ResponseMsg<List<OtaFwUpgradeResponse>> responseMsg = responseDecode(result,2);
-            return responseMsg;
+            return responseDecode(aiotConfig,result,2);
         } catch (Exception e) {
             log.error("firmwareUpgrade error:", e);
         }
@@ -78,17 +76,16 @@ public class OtaManager extends CommonRequest {
      * @param dids
      * @return
      */
-    public static ResponseMsg upgradeQuery(List<String> dids) {
+    public static ResponseMsg upgradeQuery(AiotConfig aiotConfig,List<String> dids) {
         try {
             OtaUpgradeQueryRequest request = new OtaUpgradeQueryRequest();
             request.setDids(dids);
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("upgradeQuery result:{},request:{}", result, JSON.toJSONString(request));
 
-            ResponseMsg<List<OtaUpgradeQueryResponse>> responseMsg = responseDecode(result,2);
-            return responseMsg;
+            return responseDecode(aiotConfig,result,2);
         } catch (Exception e) {
             log.error("upgradeQuery error:", e);
         }

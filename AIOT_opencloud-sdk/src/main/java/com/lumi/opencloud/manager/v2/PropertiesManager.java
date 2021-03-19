@@ -29,13 +29,13 @@ public class PropertiesManager extends CommonRequest {
      * @param request
      * @return
      */
-    public static ResponseMsg write(PropertiesWriteRequest request) {
+    public static ResponseMsg write(AiotConfig aiotConfig,PropertiesWriteRequest request) {
         try {
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("properties write result:{},request:{}", result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("properties write error:", e);
         }
@@ -48,17 +48,16 @@ public class PropertiesManager extends CommonRequest {
      * @param infoList
      * @return
      */
-    public static ResponseMsg query(List<PropertiesQueryInfo> infoList) {
+    public static ResponseMsg query(AiotConfig aiotConfig,List<PropertiesQueryInfo> infoList) {
         try {
             PropertiesQueryRequest request = new PropertiesQueryRequest();
             request.setData(infoList);
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("properties query result:{},request:{}", result, JSON.toJSONString(request));
 
-            ResponseMsg<List<PropertiesQueryResponse>> responseMsg = responseDecode(result,2);
-            return responseMsg;
+            return responseDecode(aiotConfig,result,2);
         } catch (Exception e) {
             log.error("properties query error:", e);
         }
@@ -71,15 +70,14 @@ public class PropertiesManager extends CommonRequest {
      * @param request
      * @return
      */
-    public static ResponseMsg historyQuery(ResourceHistoryQueryRequest request) {
+    public static ResponseMsg historyQuery(AiotConfig aiotConfig,ResourceHistoryQueryRequest request) {
         try {
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("properties history query result:{},request:{}", result, JSON.toJSONString(request));
 
-            ResponseMsg<List<PropertiesHistoryQueryResponse>> responseMsg = responseDecode(result,2);
-            return responseMsg;
+            return responseDecode(aiotConfig,result,2);
         } catch (Exception e) {
             log.error("properties history query error:", e);
         }

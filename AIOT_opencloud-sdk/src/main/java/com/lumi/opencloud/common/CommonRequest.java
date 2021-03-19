@@ -22,51 +22,52 @@ public class CommonRequest {
 
     public static final String REQUEST_HEADER_APPID = "Appid";
 
-    public static final String REQUEST_HEADER_SIGN = "Sign";
-
     public static final String REQUEST_HEADER_TOKEN = "Accesstoken";
-
-    public static final String REQUEST_HEADER_PAYLOAD = "Payload";
 
     public static final String REQUEST_HEADER_LANG = "Lang";
 
     public static final String REQUEST_HEADER_TIME = "Time";
+
+    public static final String REQUEST_HEADER_PAYLOAD = "Payload";
+
+    public static final String REQUEST_HEADER_SIGN = "Sign";
 
     /**
      * V2.0 Api header
      * @param body
      * @return
      */
-    public static Map<String, String> constructHeaderV2(String body) {
+    public static Map<String, String> constructHeaderV2(AiotConfig aiotConfig,String body) {
         Map<String, String> header = new HashMap<>(4);
-        header.put(REQUEST_HEADER_APPID, AiotConfig.getAppid());
+        header.put(REQUEST_HEADER_APPID, aiotConfig.getAppId());
         header.put(REQUEST_HEADER_TIME, String.valueOf(System.currentTimeMillis()));
-        if(StringUtils.isNotBlank(AiotConfig.getLang())){
-            header.put(REQUEST_HEADER_LANG, AiotConfig.getLang());
+        if(StringUtils.isNotBlank(aiotConfig.getLang())){
+            header.put(REQUEST_HEADER_LANG, aiotConfig.getLang());
         }
+
         if(StringUtils.isNotBlank(body)) {
             header.put(REQUEST_HEADER_PAYLOAD,body);
         }
 
-        String sign = FilterContext.createSign(header, AiotConfig.getAppkey(),false);
+        String sign = FilterContext.createSign(header, aiotConfig.getAppKey(),false);
         header.put(REQUEST_HEADER_SIGN,sign);
         return header;
     }
 
     /**
-     * Result 解码
+     * Result decrypt
      * @param result
-     * @param type result类型（0-String,1-JSONObject 2-JSONArray）
+     * @param type result type（0-String,1-JSONObject 2-JSONArray）
      * @return
      */
-    public static ResponseMsg responseDecode(String result,int type) throws Exception {
+    public static ResponseMsg responseDecode(AiotConfig aiotConfig,String result,int type) throws Exception {
         if(StringUtils.isBlank(result)){
             return ResponseMsg.builder().code(OpenCloudErrorCodeEnum.ERROR_SERVER_INTERNAL.getCode())
                     .message(OpenCloudErrorCodeEnum.ERROR_SERVER_INTERNAL.getDesc()).build();
         }
         ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
         if(responseMsg.getResult() != null){
-            String data = AESUtil.decryptCbc(responseMsg.getResult().toString(), AESUtil.getAESKey(AiotConfig.getAppkey()));
+            String data = AESUtil.decryptCbc(responseMsg.getResult().toString(), AESUtil.getAESKey(aiotConfig.getAppKey()));
             if(responseMsg.getCode() == OpenCloudErrorCodeEnum.SUCCESS.getCode()){
                 if(type == 0){
                     responseMsg.setResult(data);
@@ -87,17 +88,14 @@ public class CommonRequest {
      * V1.0 Api header
      * @return
      */
-    public static Map<String, String> constructHeaderV1() {
+    public static Map<String, String> constructHeaderV1(AiotConfig aiotConfig) {
         Map<String, String> header = new HashMap<>(4);
-        header.put(REQUEST_HEADER_APPID, AiotConfig.getAppid());
+        header.put(REQUEST_HEADER_APPID, aiotConfig.getAppId());
         header.put(REQUEST_HEADER_TIME, String.valueOf(System.currentTimeMillis()));
-        if(StringUtils.isNotBlank(AiotConfig.getLang())){
-            header.put(REQUEST_HEADER_LANG, AiotConfig.getLang());
+        if(StringUtils.isNotBlank(aiotConfig.getLang())){
+            header.put(REQUEST_HEADER_LANG, aiotConfig.getLang());
         }
-        header.put(REQUEST_HEADER_TOKEN, AiotConfig.getAccesstoken());
-
-        String sign = FilterContext.createSign(header, AiotConfig.getAppkey(),false);
-        header.put(REQUEST_HEADER_SIGN,sign);
+        header.put(REQUEST_HEADER_TOKEN, aiotConfig.getAccessToken());
         return header;
     }
 

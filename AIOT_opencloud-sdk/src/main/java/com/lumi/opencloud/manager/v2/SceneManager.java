@@ -29,13 +29,13 @@ public class SceneManager extends CommonRequest {
      * @param request
      * @return ResponseMsg
      */
-    public static ResponseMsg createScene(SceneCreateRequest request) {
+    public static ResponseMsg createScene(AiotConfig aiotConfig,SceneCreateRequest request) {
         try {
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("createScene result:{},request:{}", result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("createScene error:", e);
         }
@@ -49,13 +49,13 @@ public class SceneManager extends CommonRequest {
      * @param request
      * @return ResponseMsg
      */
-    public static ResponseMsg updateScene(SceneUpdateRequest request) {
+    public static ResponseMsg updateScene(AiotConfig aiotConfig,SceneUpdateRequest request) {
         try {
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("updateScene result:{},request:{}", result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("triggerDefinition error:", e);
         }
@@ -68,16 +68,16 @@ public class SceneManager extends CommonRequest {
      * @param sceneId
      * @return ResponseMsg
      */
-    public static ResponseMsg deleteScene(String sceneId) {
+    public static ResponseMsg deleteScene(AiotConfig aiotConfig,String sceneId) {
         try {
             SceneDeleteRequest request = new SceneDeleteRequest();
             request.setSceneId(sceneId);
 
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("deleteScene result:{},request:{}", result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("triggerDefinition error:", e);
         }
@@ -90,13 +90,13 @@ public class SceneManager extends CommonRequest {
      * @param request
      * @return ResponseMsg
      */
-    public static ResponseMsg tryScene(SceneTryRequest request) {
+    public static ResponseMsg tryScene(AiotConfig aiotConfig,SceneTryRequest request) {
         try {
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("tryScene result:{},request:{}", result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("triggerDefinition error:", e);
         }
@@ -109,16 +109,16 @@ public class SceneManager extends CommonRequest {
      * @param sceneId
      * @return
      */
-    public static ResponseMsg runScene(String sceneId) {
+    public static ResponseMsg runScene(AiotConfig aiotConfig,String sceneId) {
         try {
             SceneRunRequest request = new SceneRunRequest();
             request.setSceneId(sceneId);
 
-            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("runScene result:{},request:{}", result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("runScene error:", e);
         }
@@ -129,16 +129,16 @@ public class SceneManager extends CommonRequest {
      * ch:查询场景的详细信息
      * en: query detail information of scene
      */
-    public static ResponseMsg queryDetailScene(String sceneId) {
+    public static ResponseMsg queryDetailScene(AiotConfig aiotConfig,String sceneId) {
         try {
             SceneQueryDetailRequest request = new SceneQueryDetailRequest();
             request.setSceneId(sceneId);
 
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(""), request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null), request.requestMap());
             log.info("queryDetailScene result:{},request:{}", result, JSON.toJSONString(request));
 
-            ResponseMsg<SceneQueryDetailResponse> responseMsg = responseDecode(result,1);
+            ResponseMsg<SceneQueryDetailResponse> responseMsg = responseDecode(aiotConfig,result,1);
             return responseMsg;
         } catch (Exception e) {
             log.error("queryDetailScene error:", e);
@@ -151,16 +151,16 @@ public class SceneManager extends CommonRequest {
      * ch:根据设备查询场景列表
      * en:Query scene list based on device
      */
-    public static ResponseMsg querySubjectScene(String subjectId) {
+    public static ResponseMsg querySubjectScene(AiotConfig aiotConfig,String subjectId) {
         try {
             SceneSubjectQueryRequest request = new SceneSubjectQueryRequest();
             request.setSubjectId(subjectId);
 
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(""), request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,""), request.requestMap());
             log.info("querySubjectScene result:{},request:{}", result, JSON.toJSONString(request));
 
-            ResponseMsg<List<SceneSubjectQueryResponse>> responseMsg = responseDecode(result,2);
+            ResponseMsg<List<SceneSubjectQueryResponse>> responseMsg = responseDecode(aiotConfig,result,2);
             return responseMsg;
         } catch (Exception e) {
             log.error("triggerDefinition error:", e);

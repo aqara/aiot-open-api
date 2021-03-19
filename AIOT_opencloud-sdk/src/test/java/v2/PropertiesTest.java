@@ -2,7 +2,7 @@ package v2;
 
 import com.lumi.opencloud.common.AiotConfig;
 import com.lumi.opencloud.common.ResponseMsg;
-import com.lumi.opencloud.common.TestConstants;
+import com.lumi.opencloud.common.CustomConfig;
 import com.lumi.opencloud.manager.v2.PropertiesManager;
 import com.lumi.opencloud.model.v2.request.PropertiesQueryInfo;
 import com.lumi.opencloud.model.v2.request.PropertiesWriteRequest;
@@ -24,37 +24,34 @@ import java.util.Map;
 public class PropertiesTest {
     private static Logger log = LoggerFactory.getLogger(PropertiesTest.class);
 
-    private void setClient(){
-        AiotConfig.setClientV2(TestConstants.Appid,TestConstants.Appkey,TestConstants.Lang,TestConstants.DOMAIN_V2);
+    private AiotConfig testV2Config(){
+        return new AiotConfig(CustomConfig.Appid, CustomConfig.Appkey, CustomConfig.Lang, CustomConfig.DOMAIN_V2);
     }
 
     @Test
     public void query() {
-        setClient();
         List<PropertiesQueryInfo> queryList = new ArrayList<>();
-        ResponseMsg responseMsg = PropertiesManager.query(queryList);
+        ResponseMsg responseMsg = PropertiesManager.query(testV2Config(),queryList);
         log.info("properties query responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void write() {
-        setClient();
         PropertiesWriteRequest request = new PropertiesWriteRequest();
         request.setDid("lumi1.7811dc93a6d9");
         Map<String,Object> data = new HashMap<>();
         data.put("corridor_light_status",1);
         request.setData(data);
-        ResponseMsg responseMsg = PropertiesManager.write(request);
+        ResponseMsg responseMsg = PropertiesManager.write(testV2Config(),request);
         log.info("properties write responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void historyQuery() {
-        setClient();
         List<String> properties = new ArrayList<>();
         ResourceHistoryQueryRequest request = new ResourceHistoryQueryRequest();
         request.setProperties(properties);
-        ResponseMsg responseMsg = PropertiesManager.historyQuery(request);
+        ResponseMsg responseMsg = PropertiesManager.historyQuery(testV2Config(),request);
         log.info("properties history query responseMsg:{}",responseMsg.toString());
     }
 }

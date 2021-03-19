@@ -28,12 +28,12 @@ public class ResourceManager extends CommonRequest {
      *  Query resource
      * @return ResponseMsg
      */
-    public static ResponseMsg query(List<ResourceQueryInfo> infoList) {
+    public static ResponseMsg query(AiotConfig aiotConfig,List<ResourceQueryInfo> infoList) {
         try {
             ResourceQueryRequest request = new ResourceQueryRequest();
             request.setData(infoList);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(), JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig), JSON.toJSONString(request));
             log.info("resource query result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<List<ResourceQueryResponse>> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -50,10 +50,10 @@ public class ResourceManager extends CommonRequest {
      *  update resource
      * @return ResponseMsg
      */
-    public static ResponseMsg update(ResourceUpdateRequest request) {
+    public static ResponseMsg update(AiotConfig aiotConfig,ResourceUpdateRequest request) {
         try {
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("resource update result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -70,12 +70,12 @@ public class ResourceManager extends CommonRequest {
      *  subscriber resource
      * @return ResponseMsg
      */
-    public static ResponseMsg subscriber(List<ResourceSubscribeInfo> infoList) {
+    public static ResponseMsg subscriber(AiotConfig aiotConfig,List<ResourceSubscribeInfo> infoList) {
         try {
             ResourceSubscribeRequest request = new ResourceSubscribeRequest();
             request.setData(infoList);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("resource subscriber result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -92,12 +92,12 @@ public class ResourceManager extends CommonRequest {
      *  un subscriber resource
      * @return ResponseMsg
      */
-    public static ResponseMsg unsubscriber(List<ResourceSubscribeInfo> infoList) {
+    public static ResponseMsg unsubscriber(AiotConfig aiotConfig,List<ResourceSubscribeInfo> infoList) {
         try {
             ResourceUnSubscribeRequest request = new ResourceUnSubscribeRequest();
             request.setData(infoList);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("resource unsubscriber result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -114,10 +114,10 @@ public class ResourceManager extends CommonRequest {
      *  resource historyQuery
      * @return ResponseMsg
      */
-    public static ResponseMsg historyQuery(ResourceHistoryQueryRequest request) {
+    public static ResponseMsg historyQuery(AiotConfig aiotConfig,ResourceHistoryQueryRequest request) {
         try {
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("resource historyQuery result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<ResourceHistoryQueryResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);

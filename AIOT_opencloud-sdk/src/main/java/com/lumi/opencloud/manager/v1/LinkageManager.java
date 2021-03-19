@@ -26,12 +26,12 @@ public class LinkageManager extends CommonRequest {
      *  Query what triggers the specified object type has (IF)
      * @return ResponseMsg
      */
-    public static ResponseMsg triggerQuery(List<String> models) {
+    public static ResponseMsg triggerQuery(AiotConfig aiotConfig,List<String> models) {
         try {
             IftttTriggerQueryRequest request = new IftttTriggerQueryRequest();
             request.setModels(models);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("triggerQuery result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<List<IftttTriggerQueryResponse>> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -48,12 +48,12 @@ public class LinkageManager extends CommonRequest {
      *  Query what actions the specified object type has (Then)
      * @return ResponseMsg
      */
-    public static ResponseMsg actionQuery(List<String> models) {
+    public static ResponseMsg actionQuery(AiotConfig aiotConfig,List<String> models) {
         try {
             IftttActionQueryRequest request = new IftttActionQueryRequest();
             request.setModels(models);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("actionQuery result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<List<IftttActionQueryResponse>> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -70,10 +70,10 @@ public class LinkageManager extends CommonRequest {
      *  Query automation list
      * @return ResponseMsg
      */
-    public static ResponseMsg queryIfttt(IftttListQueryRequest request) {
+    public static ResponseMsg queryIfttt(AiotConfig aiotConfig,IftttListQueryRequest request) {
         try {
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("queryIfttt result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<IftttListQueryResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -90,12 +90,12 @@ public class LinkageManager extends CommonRequest {
      *  Query detail information of the automation
      * @return ResponseMsg
      */
-    public static ResponseMsg queryIftttDetail(String iftttId) {
+    public static ResponseMsg queryIftttDetail(AiotConfig aiotConfig,String iftttId) {
         try {
             IftttDetailQueryRequest request = new IftttDetailQueryRequest();
             request.setIftttId(iftttId);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("queryIftttDetail result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<IftttDetailQueryResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -112,10 +112,10 @@ public class LinkageManager extends CommonRequest {
      *  Create ifttt
      * @return ResponseMsg
      */
-    public static ResponseMsg createIfttt(IftttCreateRequest request) {
+    public static ResponseMsg createIfttt(AiotConfig aiotConfig,IftttCreateRequest request) {
         try {
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(), JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig), JSON.toJSONString(request));
             log.info("createIfttt result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<IftttCreateResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -132,12 +132,12 @@ public class LinkageManager extends CommonRequest {
      *  Delete ifttt
      * @return ResponseMsg
      */
-    public static ResponseMsg deleteIfttt(String iftttId) {
+    public static ResponseMsg deleteIfttt(AiotConfig aiotConfig,String iftttId) {
         try {
             IftttDeleteRequest request = new IftttDeleteRequest();
             request.setIftttId(iftttId);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("deleteIfttt result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -154,19 +154,39 @@ public class LinkageManager extends CommonRequest {
      *  Enable/disable automation
      * @return ResponseMsg
      */
-    public static ResponseMsg enableIfttt(String iftttId,Integer enable) {
+    public static ResponseMsg enableIfttt(AiotConfig aiotConfig,String iftttId,Integer enable) {
         try {
             IftttEnableRequest request = new IftttEnableRequest();
             request.setIftttId(iftttId);
             request.setEnable(enable);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("enableIfttt result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
             return responseMsg;
         } catch (Exception e) {
             log.error("enableIfttt error:", e);
+        }
+
+        return null;
+    }
+
+    /**
+     * 	更新联动
+     *  Create ifttt
+     * @return ResponseMsg
+     */
+    public static ResponseMsg updateIfttt(AiotConfig aiotConfig,IftttCreateRequest request) {
+        try {
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig), JSON.toJSONString(request));
+            log.info("createIfttt result:{},request:{}", result,JSON.toJSONString(request));
+
+            ResponseMsg<IftttCreateResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
+            return responseMsg;
+        } catch (Exception e) {
+            log.error("createIfttt error:", e);
         }
 
         return null;

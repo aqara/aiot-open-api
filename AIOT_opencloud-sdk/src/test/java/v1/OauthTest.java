@@ -1,7 +1,7 @@
 package v1;
 
 import com.lumi.opencloud.common.AiotConfig;
-import com.lumi.opencloud.common.TestConstants;
+import com.lumi.opencloud.common.CustomConfig;
 import com.lumi.opencloud.manager.v1.OauthManager;
 import com.lumi.opencloud.model.v1.request.AccessTokenRequest;
 import com.lumi.opencloud.model.v1.request.AuthorizeRequest;
@@ -20,28 +20,26 @@ public class OauthTest {
 
     @Test
     public void authorize() {
-        AiotConfig.setDomain(TestConstants.DOMAIN_OAUTH);
         AuthorizeRequest request = new AuthorizeRequest();
-        request.setClient_id("xxx");
-        request.setRedirect_uri("www.baidu.com");
+        request.setClient_id("08821a12896631f8053610a1");
+        request.setRedirect_uri("www.aqara.com");
         request.setResponse_type("code");
         request.setState("aqara");
 
-        request.setAccount("xxx");
-        request.setPassword("xxx");
-        OauthManager.authorize(request);
+        request.setAccount("ifeng@aqara.com");
+        request.setPassword("king7777");
+        OauthManager.authorize(CustomConfig.DOMAIN,request);
     }
 
     @Test
     public void accessToken() {
-        AiotConfig.setDomain(TestConstants.DOMAIN_OAUTH);
         AccessTokenRequest request = new AccessTokenRequest();
-        request.setClient_id("xxx");
-        request.setClient_secret("xxx");
-        request.setRedirect_uri("www.baidu.com");
+        request.setClient_id("4d6382d971361476664c465a");
+        request.setClient_secret("S0X1TUwz12uFlmDEwWcyx27kASRC91eI");
+        request.setRedirect_uri("www.aqara.com");
         request.setGrant_type(AccessTokenRequest.GrantType_AuthCode);
-        request.setCode("xxx");
+        request.setCode("ba70e25853b0c3cddbc810e24c50024f");
         request.setState("aqara");
-        OauthManager.accessToken(request);
+        OauthManager.accessToken(CustomConfig.DOMAIN,request);
     }
 }

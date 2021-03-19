@@ -26,10 +26,10 @@ public class SceneManager extends CommonRequest {
      *  Query scene list
      * @return ResponseMsg
      */
-    public static ResponseMsg querySceneList(SceneListQueryRequest request) {
+    public static ResponseMsg querySceneList(AiotConfig aiotConfig,SceneListQueryRequest request) {
         try {
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("querySceneList result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<SceneListQueryResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -46,12 +46,12 @@ public class SceneManager extends CommonRequest {
      *  Query scene list
      * @return ResponseMsg
      */
-    public static ResponseMsg querySceneDetail(String sceneId) {
+    public static ResponseMsg querySceneDetail(AiotConfig aiotConfig,String sceneId) {
         try {
             SceneDetailQueryRequest request = new SceneDetailQueryRequest();
             request.setSceneId(sceneId);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("querySceneDetail result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<SceneQueryDetailResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -68,10 +68,10 @@ public class SceneManager extends CommonRequest {
      *  Create scene
      * @return ResponseMsg
      */
-    public static ResponseMsg createScene(SceneCreateRequest request) {
+    public static ResponseMsg createScene(AiotConfig aiotConfig,SceneCreateRequest request) {
         try {
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(), JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig), JSON.toJSONString(request));
             log.info("createScene result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<SceneCreateResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -88,12 +88,12 @@ public class SceneManager extends CommonRequest {
      *  Create scene
      * @return ResponseMsg
      */
-    public static ResponseMsg deleteScene(String sceneId) {
+    public static ResponseMsg deleteScene(AiotConfig aiotConfig,String sceneId) {
         try {
             SceneDeleteRequest request = new SceneDeleteRequest();
             request.setSceneId(sceneId);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("deleteScene result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -110,12 +110,12 @@ public class SceneManager extends CommonRequest {
      *  Create scene
      * @return ResponseMsg
      */
-    public static ResponseMsg runScene(String sceneId) {
+    public static ResponseMsg runScene(AiotConfig aiotConfig,String sceneId) {
         try {
             SceneRunRequest request = new SceneRunRequest();
             request.setSceneId(sceneId);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("runScene result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);

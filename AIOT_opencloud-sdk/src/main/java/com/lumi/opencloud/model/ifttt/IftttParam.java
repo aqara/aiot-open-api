@@ -12,21 +12,21 @@ import java.io.Serializable;
 @Data
 public class IftttParam implements Serializable {
 
-    private String paramId;
-
-    private String paramName;
-
+    /**
+     * 参数值
+     */
     private String value;
-
+    /**
+     * 参数定义ID
+     */
+    private String paramId;
+    /**
+     * 参数类型
+     */
     private String paramType;
 
+    /**
+     * 单位
+     */
     private String paramUnit;
-
-    private String paramEnum;
-
-    private String defaultValue;
-
-    private String minValue;
-
-    private String maxValue;
 }

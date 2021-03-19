@@ -28,10 +28,10 @@ public class PositionManager extends CommonRequest {
      *  Query position
      * @return ResponseMsg
      */
-    public static ResponseMsg positionQuery(PositionQueryRequest request) {
+    public static ResponseMsg positionQuery(AiotConfig aiotConfig,PositionQueryRequest request) {
         try {
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("positionQuery result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<PositionQueryResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -48,14 +48,14 @@ public class PositionManager extends CommonRequest {
      *  Create position
      * @return ResponseMsg
      */
-    public static ResponseMsg positionAdd(String positionName,String parentPositionId,String description) {
+    public static ResponseMsg positionAdd(AiotConfig aiotConfig,String positionName,String parentPositionId,String description) {
         try {
             PositionAddRequest request = new PositionAddRequest();
             request.setPositionName(positionName);
             request.setParentPositionId(parentPositionId);
             request.setDescription(description);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(), JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig), JSON.toJSONString(request));
             log.info("positionAdd result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -72,12 +72,12 @@ public class PositionManager extends CommonRequest {
      *  Delete position
      * @return ResponseMsg
      */
-    public static ResponseMsg positionDelete(String positionId) {
+    public static ResponseMsg positionDelete(AiotConfig aiotConfig,String positionId) {
         try {
             PositionDeleteRequest request = new PositionDeleteRequest();
             request.setPositionId(positionId);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("positionDelete result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -94,14 +94,14 @@ public class PositionManager extends CommonRequest {
      *  Update position
      * @return ResponseMsg
      */
-    public static ResponseMsg positionUpdate(String positionId,String positionName,String description) {
+    public static ResponseMsg positionUpdate(AiotConfig aiotConfig,String positionId,String positionName,String description) {
         try {
             PositionUpdateRequest request = new PositionUpdateRequest();
             request.setPositionId(positionId);
             request.setPositionName(positionName);
             request.setDescription(description);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("positionUpdate result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);

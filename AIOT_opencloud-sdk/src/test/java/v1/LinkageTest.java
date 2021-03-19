@@ -2,7 +2,7 @@ package v1;
 
 import com.lumi.opencloud.common.AiotConfig;
 import com.lumi.opencloud.common.ResponseMsg;
-import com.lumi.opencloud.common.TestConstants;
+import com.lumi.opencloud.common.CustomConfig;
 import com.lumi.opencloud.manager.v1.LinkageManager;
 import com.lumi.opencloud.model.ifttt.IftttParam;
 import com.lumi.opencloud.model.v1.request.ActionContentRequest;
@@ -10,6 +10,7 @@ import com.lumi.opencloud.model.v1.request.IftttCreateRequest;
 import com.lumi.opencloud.model.v1.request.IftttListQueryRequest;
 import com.lumi.opencloud.model.v1.request.TriggerContentRequest;
 import com.lumi.opencloud.model.v1.response.*;
+import config.TestConfig;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,48 +26,43 @@ import java.util.List;
 public class LinkageTest {
     private static Logger log = LoggerFactory.getLogger(LinkageTest.class);
 
-    private void setClient(){
-        AiotConfig.setClientV1(TestConstants.Appid,TestConstants.Appkey,TestConstants.Token,TestConstants.Lang,TestConstants.DOMAIN_V1);
+    private AiotConfig testV1Config(){
+        return new AiotConfig(CustomConfig.Appid, CustomConfig.Appkey, TestConfig.Token, CustomConfig.Lang, CustomConfig.DOMAIN_V1);
     }
 
     @Test
     public void triggerQuery() {
-        setClient();
         List<String> models = new ArrayList<>();
-        models.add(TestConstants.model);
-        models.add(TestConstants.model2);
-        ResponseMsg<List<IftttTriggerQueryResponse>> responseMsg = LinkageManager.triggerQuery(models);
+        models.add(TestConfig.model);
+        models.add(TestConfig.model2);
+        ResponseMsg<List<IftttTriggerQueryResponse>> responseMsg = LinkageManager.triggerQuery(testV1Config(),models);
         log.info("trigger query responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void actionQuery() {
-        setClient();
         List<String> models = new ArrayList<>();
-        models.add(TestConstants.model);
-        models.add(TestConstants.model2);
-        ResponseMsg<List<IftttActionQueryResponse>> responseMsg = LinkageManager.actionQuery(models);
+        models.add(TestConfig.model);
+        models.add(TestConfig.model2);
+        ResponseMsg<List<IftttActionQueryResponse>> responseMsg = LinkageManager.actionQuery(testV1Config(),models);
         log.info("trigger query responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void queryIfttt() {
-        setClient();
         IftttListQueryRequest request = new IftttListQueryRequest();
-        ResponseMsg<IftttDetailQueryResponse> responseMsg = LinkageManager.queryIfttt(request);
+        ResponseMsg<IftttDetailQueryResponse> responseMsg = LinkageManager.queryIfttt(testV1Config(),request);
         log.info("ifttt query detail responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void queryIftttDetail() {
-        setClient();
-        ResponseMsg<IftttDetailQueryResponse> responseMsg = LinkageManager.queryIftttDetail("L.601420611007008768");
+        ResponseMsg<IftttDetailQueryResponse> responseMsg = LinkageManager.queryIftttDetail(testV1Config(),"L.601420611007008768");
         log.info("ifttt query detail responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void createIfttt() {
-        setClient();
         IftttCreateRequest request = new IftttCreateRequest();
         request.setName("test");
         request.setPositionId("real1.526842808154193920");
@@ -91,21 +87,19 @@ public class LinkageTest {
         action.setDid("lumi.158d0002395c04");
         actionList.add(action);
         request.setActions(actionList);
-        ResponseMsg<IftttListQueryResponse> responseMsg = LinkageManager.createIfttt(request);
+        ResponseMsg<IftttListQueryResponse> responseMsg = LinkageManager.createIfttt(testV1Config(),request);
         log.info("ifttt add responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void deleteIfttt() {
-        setClient();
-        ResponseMsg responseMsg = LinkageManager.deleteIfttt("L.601420611007008768");
+        ResponseMsg responseMsg = LinkageManager.deleteIfttt(testV1Config(),"L.601420611007008768");
         log.info("ifttt delete responseMsg:{}",responseMsg.toString());
     }
 
     @Test
     public void enableIfttt() {
-        setClient();
-        ResponseMsg responseMsg = LinkageManager.enableIfttt("L.601423958355202048",0);
+        ResponseMsg responseMsg = LinkageManager.enableIfttt(testV1Config(),"L.601423958355202048",0);
         log.info("ifttt enable responseMsg:{}",responseMsg.toString());
     }
 }

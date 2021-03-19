@@ -6,6 +6,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author: zzm
@@ -20,6 +21,8 @@ public class ResourceSubscribeInfo extends BaseRequest {
     private String did;
 
     private List<String> attrs;
+
+    private Set<String> resourceIds;
 
     private String attach;
 

@@ -28,10 +28,10 @@ public class DeviceManager extends CommonRequest {
      * Query device
      * @return ResponseMsg
      */
-    public static ResponseMsg deviceQuery(DeviceQueryRequest request) {
+    public static ResponseMsg deviceQuery(AiotConfig aiotConfig,DeviceQueryRequest request) {
         try {
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("deviceQuery result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<DeviceQueryResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -48,13 +48,13 @@ public class DeviceManager extends CommonRequest {
      * update device
      * @return ResponseMsg
      */
-    public static ResponseMsg deviceUpdate(String did,String name) {
+    public static ResponseMsg deviceUpdate(AiotConfig aiotConfig,String did,String name) {
         try {
             DeviceUpdateRequest request = new DeviceUpdateRequest();
             request.setDid(did);
             request.setName(name);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(), JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig), JSON.toJSONString(request));
             log.info("deviceUpdate result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -72,12 +72,12 @@ public class DeviceManager extends CommonRequest {
      *  @param did 网关id
      * @return ResponseMsg
      */
-    public static ResponseMsg deviceConnect(String did) {
+    public static ResponseMsg deviceConnect(AiotConfig aiotConfig,String did) {
         try {
             DeviceConnectRequest request = new DeviceConnectRequest();
             request.setDid(did);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("deviceConnect result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -95,12 +95,12 @@ public class DeviceManager extends CommonRequest {
      *  @param did 网关id
      * @return ResponseMsg
      */
-    public static ResponseMsg deviceConnectStop(String did) {
+    public static ResponseMsg deviceConnectStop(AiotConfig aiotConfig,String did) {
         try {
             DeviceConnectStopRequest request = new DeviceConnectStopRequest();
             request.setDid(did);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("deviceConnectStop result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -118,12 +118,12 @@ public class DeviceManager extends CommonRequest {
      * @param did 网关id
      * @return ResponseMsg
      */
-    public static ResponseMsg childQuery(String did) {
+    public static ResponseMsg childQuery(AiotConfig aiotConfig,String did) {
         try {
             DeviceChildQueryRequest request = new DeviceChildQueryRequest();
             request.setDid(did);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
             log.info("childQuery result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<List<DeviceInfoResponse>> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
@@ -141,13 +141,13 @@ public class DeviceManager extends CommonRequest {
      * @param did 设备id
      * @return ResponseMsg
      */
-    public static ResponseMsg unbindDev(String did,Integer option) {
+    public static ResponseMsg unbindDev(AiotConfig aiotConfig,String did,Integer option) {
         try {
             DeviceUnbindRequest request = new DeviceUnbindRequest();
             request.setDid(did);
             request.setOption(option);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(),JSON.toJSONString(request));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
             log.info("unbindDev result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg responseMsg = JSONObject.parseObject(result,ResponseMsg.class);

@@ -29,13 +29,13 @@ public class DeviceManager extends CommonRequest {
      * Obtain temporary credentials before the device is registered
      * @return ResponseMsg
      */
-    public static ResponseMsg bindGet() {
+    public static ResponseMsg bindGet(AiotConfig aiotConfig) {
         try {
             DeviceBindGetRequest request = new DeviceBindGetRequest();
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(""));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null));
             log.info("bindGet result:{}", result);
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("bindGet error:", e);
         }
@@ -49,16 +49,16 @@ public class DeviceManager extends CommonRequest {
      * @param bindKey
      * @param did
      */
-    public static ResponseMsg bindQuery(String bindKey,String did) {
+    public static ResponseMsg bindQuery(AiotConfig aiotConfig,String bindKey,String did) {
         try {
             DeviceBindQueryRequest request = new DeviceBindQueryRequest();
             request.setBindKey(bindKey);
             request.setDid(did);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(""),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null),request.requestMap());
             log.info("bindQuery result:{},request:{}" , result, JSON.toJSONString(request));
 
-            ResponseMsg<DeviceBindQueryResponse> responseMsg = responseDecode(result,1);
+            ResponseMsg<DeviceBindQueryResponse> responseMsg = responseDecode(aiotConfig,result,1);
             return responseMsg;
         } catch (Exception e) {
             log.error("bindQuery error:", e);
@@ -72,15 +72,15 @@ public class DeviceManager extends CommonRequest {
      * @param dids
      * @return ResponseMsg
      */
-    public static ResponseMsg detailQuery(List<String> dids) {
+    public static ResponseMsg detailQuery(AiotConfig aiotConfig,List<String> dids) {
         try {
             DeviceQueryRequest request = new DeviceQueryRequest();
             request.setDids(dids);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(""), request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null), request.requestMap());
             log.info("devInfoQuery result:{},request:{}" , result, JSON.toJSONString(request));
 
-            ResponseMsg<List<DeviceInfoResponse>> responseMsg = responseDecode(result,2);
+            ResponseMsg<List<DeviceInfoResponse>> responseMsg = responseDecode(aiotConfig,result,2);
             return responseMsg;
         } catch (Exception e) {
             log.error("devInfoQuery error:", e);
@@ -94,15 +94,15 @@ public class DeviceManager extends CommonRequest {
      * @param did
      * @return ResponseMsg
      */
-    public static ResponseMsg childQuery(String did) {
+    public static ResponseMsg childQuery(AiotConfig aiotConfig,String did) {
         try {
             DeviceChildQueryRequest request = new DeviceChildQueryRequest();
             request.setDid(did);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(""),request.requestMap());
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null),request.requestMap());
             log.info("childQuery result:{},request:{}" , result, JSON.toJSONString(request));
 
-            ResponseMsg<List<DeviceQueryDetailResponse>> responseMsg = responseDecode(result,2);
+            ResponseMsg<List<DeviceQueryDetailResponse>> responseMsg = responseDecode(aiotConfig,result,2);
 
             return responseMsg;
         } catch (Exception e) {
@@ -117,17 +117,17 @@ public class DeviceManager extends CommonRequest {
      * @param did
      * @return ResponseMsg
      */
-    public static ResponseMsg connectSubdeviceStart(String did,String installCode) {
+    public static ResponseMsg connectSubdeviceStart(AiotConfig aiotConfig,String did,String installCode) {
         try {
             DeviceConnectStartRequest request = new DeviceConnectStartRequest();
             request.setDid(did);
             request.setInstallCode(installCode);
 
-            String body = AESUtil.encryptCbc(JSONObject.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body),body);
+            String body = AESUtil.encryptCbc(JSONObject.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body),body);
             log.info("devStart result:{},request:{}" , result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("devStart error:", e);
         }
@@ -140,16 +140,16 @@ public class DeviceManager extends CommonRequest {
      * @param did
      * @return ResponseMsg
      */
-    public static ResponseMsg connectSubdeviceStop(String did) {
+    public static ResponseMsg connectSubdeviceStop(AiotConfig aiotConfig,String did) {
         try {
             DeviceConnectStopRequest request = new DeviceConnectStopRequest();
             request.setDid(did);
 
-            String body = AESUtil.encryptCbc(JSONObject.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSONObject.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("connect sub device Stop result:{},request:{}" , result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("devStop error:", e);
         }
@@ -163,17 +163,17 @@ public class DeviceManager extends CommonRequest {
      * @param option
      * @return ResponseMsg
      */
-    public static ResponseMsg unbindDev(String did,Integer option) {
+    public static ResponseMsg unbindDev(AiotConfig aiotConfig,String did,Integer option) {
         try {
             DeviceUnBindRequest request = new DeviceUnBindRequest();
             request.setDid(did);
             request.setOptions(option);
 
-            String body = AESUtil.encryptCbc(JSONObject.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSONObject.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("unbindDev result:{},request:{}" , result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("unbindDev error:", e);
         }
@@ -187,18 +187,18 @@ public class DeviceManager extends CommonRequest {
      * @param timeZone
      * @return ResponseMsg
      */
-    public static ResponseMsg updateTimeZone(List<String> dids,String timeZone) {
+    public static ResponseMsg updateTimeZone(AiotConfig aiotConfig,List<String> dids,String timeZone) {
         try {
             DeviceTimezoneUpdateRequest request = new DeviceTimezoneUpdateRequest();
             request.setDids(dids);
             request.setTimeZone(timeZone);
 
-            String body = AESUtil.encryptCbc(JSONObject.toJSONString(request), AESUtil.getAESKey(AiotConfig.getAppkey()));
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(body), body);
+            String body = AESUtil.encryptCbc(JSONObject.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
 
             log.info("updateTimeZone result:{},request:{}" , result, JSON.toJSONString(request));
-            return responseDecode(result,0);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("updateTimeZone error:", e);
         }

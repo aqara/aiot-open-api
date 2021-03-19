@@ -25,11 +25,11 @@ public class OauthManager {
      * Query device
      * @return ResponseMsg
      */
-    public static String authorize(AuthorizeRequest request) {
+    public static String authorize(String domain,AuthorizeRequest request) {
         try {
             request.setResponse_type(AuthorizeRequest.RESPONSE_TYPE);
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, request.getParamsMap(),new HashMap<>(),request.getBodyMap(),false);
+            String url = domain + request.uri();
+            String result = PooledHttpClientUtils.doPost(url, request.getParamsMap(),new HashMap<>(),request.getBodyMap(),false);
             log.info("authorize result:{}", result);
 
             return result;
@@ -45,11 +45,11 @@ public class OauthManager {
      * Query device
      * @return ResponseMsg
      */
-    public static AccessTokenResponse accessToken(AccessTokenRequest request) {
+    public static AccessTokenResponse accessToken(String domain,AccessTokenRequest request) {
         try {
 
-            String domain = AiotConfig.getDomain() + request.uri();
-            String result = PooledHttpClientUtils.doPost(domain, new HashMap<>() , request.getParamsMap(),false);
+            String url = domain + request.uri();
+            String result = PooledHttpClientUtils.doPost(url, new HashMap<>() , request.getParamsMap(),false);
             log.info("accessToken result:{}", result);
 
             AccessTokenResponse response = JSONObject.parseObject(result,AccessTokenResponse.class);

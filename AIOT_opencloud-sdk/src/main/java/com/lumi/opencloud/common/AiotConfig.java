@@ -8,82 +8,92 @@ package com.lumi.opencloud.common;
 public class AiotConfig {
 
     /**
-     * 应用ID
+     * application ID
      */
-    private static String Appid;
+    private String appId;
 
     /**
-     * 应用key
+     * application key
      */
-    private static String Appkey;
+    private String appKey;
 
     /**
-     * 域名
+     *
+     * request domain of Aqara open cloud
+     *      China: https://aiot-open-3rd.aqara.cn
+     *      USA: https://aiot-open-usa.aqara.com
+     *      Europe:https://open-ger.aqara.com
+     *      Korea: https://open-kr.aqara.com
+     *      Russia: https://open-ru.aqara.com
+     *
      */
-    private static String Domain;
+    private String domain;
 
     /**
-     * 语言
+     * language
      */
-    private static String Lang;
+    private String lang;
 
     /**
-     * v1.0授权token
+     * access token
      */
-    private static String Accesstoken;
+    private String accessToken;
 
-    public static void setClientV1(String appId,String appKey,String accessToken,String lang, String domain){
-        Appid = appId;
-        Appkey = appKey;
-        Accesstoken = accessToken;
-        Lang = lang;
-        Domain = domain;
+    public AiotConfig(String appId, String appKey, String accessToken, String lang, String domain){
+        this.appId = appId;
+        this.appKey = appKey;
+        this.accessToken = accessToken;
+        this.lang = lang;
+        this.domain = domain;
     }
 
-    public static void setClientV2(String appId,String appKey,String lang,String domain){
-        Appid = appId;
-        Appkey = appKey;
-        Lang = lang;
-        Domain = domain;
+    public AiotConfig(String appId,String appKey,String lang,String domain){
+        this.appId = appId;
+        this.appKey = appKey;
+        this.lang = lang;
+        this.domain = domain;
     }
 
-    public static String getAppid() {
-        return Appid;
+
+    public String getAppId() {
+        return appId;
     }
 
-    public static void setAppid(String appid) {
-        Appid = appid;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    public static String getAppkey() {
-        return Appkey;
+    public String getAppKey() {
+        return appKey;
     }
 
-    public static void setAppkey(String appkey) {
-        Appkey = appkey;
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
     }
 
-    public static String getDomain() {
-        return Domain;
+    public String getDomain() {
+        return domain;
     }
 
-    public static void setDomain(String domain) {
-        Domain = domain;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
-    public static String getLang() {
-        return Lang;
+    public String getLang() {
+        return lang;
     }
 
-    public static void setLang(String lang) {
-        Lang = lang;
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
-    public static String getAccesstoken() {
-        return Accesstoken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public static void setAccesstoken(String accesstoken) {
-        Accesstoken = accesstoken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
+
+
 }
