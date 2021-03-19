@@ -21,24 +21,24 @@ public class OauthTest {
     @Test
     public void authorize() {
         AuthorizeRequest request = new AuthorizeRequest();
-        request.setClient_id("08821a12896631f8053610a1");
+        request.setClient_id(CustomConfig.Appid);
         request.setRedirect_uri("www.aqara.com");
         request.setResponse_type("code");
         request.setState("aqara");
 
-        request.setAccount("ifeng@aqara.com");
-        request.setPassword("king7777");
+        request.setAccount("");
+        request.setPassword("");
         OauthManager.authorize(CustomConfig.DOMAIN,request);
     }
 
     @Test
     public void accessToken() {
         AccessTokenRequest request = new AccessTokenRequest();
-        request.setClient_id("4d6382d971361476664c465a");
-        request.setClient_secret("S0X1TUwz12uFlmDEwWcyx27kASRC91eI");
+        request.setClient_id(CustomConfig.Appid);
+        request.setClient_secret(CustomConfig.Appkey);
         request.setRedirect_uri("www.aqara.com");
         request.setGrant_type(AccessTokenRequest.GrantType_AuthCode);
-        request.setCode("ba70e25853b0c3cddbc810e24c50024f");
+        request.setCode("");
         request.setState("aqara");
         OauthManager.accessToken(CustomConfig.DOMAIN,request);
     }

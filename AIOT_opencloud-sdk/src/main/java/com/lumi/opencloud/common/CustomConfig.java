@@ -16,8 +16,7 @@ public class CustomConfig {
      * Korea: https://open-kr.aqara.com
      * Russia: https://open-ru.aqara.com
      */
-//    public static final String DOMAIN = "https://aiot-test.aqara.com/opencloud";
-    public static final String DOMAIN = "https://aiot-open-usa.aqara.com";
+    public static final String DOMAIN = "https://aiot-open-3rd.aqara.cn";
 
     public static String DOMAIN_V1 = DOMAIN + "/3rd/v1.0/open";
     public static String DOMAIN_V2 = DOMAIN + "/v2.0/open";
@@ -26,12 +25,12 @@ public class CustomConfig {
     /**
      * please change to your appid register in aqara open cloud
      */
-    public static String Appid = "4d6382d971361476664c465a";
+    public static String Appid = "xxxx";
 
     /**
      * please change to your appkey register in aqara open cloud
      */
-    public static String Appkey = "S0X1TUwz12uFlmDEwWcyx27kASRC91eI";
+    public static String Appkey = "xxxx";
 
     /**
      * Choose a language：ch Chinese,en English
