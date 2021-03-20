@@ -8,12 +8,12 @@ package com.lumi.opencloud.common;
 public class AiotConfig {
 
     /**
-     * application ID
+     * application ID(get from aqara opencloud)
      */
     private String appId;
 
     /**
-     * application key
+     * application key(get from aqara opencloud)
      */
     private String appKey;
 
@@ -39,6 +39,14 @@ public class AiotConfig {
      */
     private String accessToken;
 
+    /**
+     * v1.0
+     * @param appId
+     * @param appKey
+     * @param accessToken
+     * @param lang
+     * @param domain
+     */
     public AiotConfig(String appId, String appKey, String accessToken, String lang, String domain){
         this.appId = appId;
         this.appKey = appKey;
@@ -47,6 +55,13 @@ public class AiotConfig {
         this.domain = domain;
     }
 
+    /**
+     * v2.0
+     * @param appId
+     * @param appKey
+     * @param lang
+     * @param domain
+     */
     public AiotConfig(String appId,String appKey,String lang,String domain){
         this.appId = appId;
         this.appKey = appKey;
@@ -94,6 +109,4 @@ public class AiotConfig {
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
-
-
 }

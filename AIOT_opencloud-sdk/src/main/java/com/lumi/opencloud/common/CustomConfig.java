@@ -9,6 +9,8 @@ public class CustomConfig {
 
 
     /**
+     * warn:please change to your device's domain
+     *
      * request domain of Aqara open cloud
      * China: https://aiot-open-3rd.aqara.cn
      * USA: https://aiot-open-usa.aqara.com
@@ -16,10 +18,11 @@ public class CustomConfig {
      * Korea: https://open-kr.aqara.com
      * Russia: https://open-ru.aqara.com
      */
-    public static final String DOMAIN = "https://aiot-open-3rd.aqara.cn";
+    public static final String DOMAIN = Contant.Domain.CHINA.url;
 
     public static String DOMAIN_V1 = DOMAIN + "/3rd/v1.0/open";
-    public static String DOMAIN_V2 = DOMAIN + "/v2.0/open";
+
+    public static String DOMAIN_V2 = DOMAIN + "/3rd/v2.0/open";
 	
 
     /**
