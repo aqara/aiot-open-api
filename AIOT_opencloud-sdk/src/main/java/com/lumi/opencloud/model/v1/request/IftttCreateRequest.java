@@ -12,7 +12,6 @@ import java.util.List;
  * @date 2019/7/15 19:29
  * @description
  */
-@Data
 public class IftttCreateRequest extends BaseRequest {
 
     /**
@@ -37,6 +36,46 @@ public class IftttCreateRequest extends BaseRequest {
      * 执行器
      */
     private List<ActionContentRequest> actions;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(String positionId) {
+        this.positionId = positionId;
+    }
+
+    public Integer getConditionRelation() {
+        return conditionRelation;
+    }
+
+    public void setConditionRelation(Integer conditionRelation) {
+        this.conditionRelation = conditionRelation;
+    }
+
+    public List<TriggerContentRequest> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(List<TriggerContentRequest> conditions) {
+        this.conditions = conditions;
+    }
+
+    public List<ActionContentRequest> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<ActionContentRequest> actions) {
+        this.actions = actions;
+    }
 
     @Override
     public String uri() {

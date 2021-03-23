@@ -1,7 +1,6 @@
 package com.lumi.opencloud.model.v1.request;
 
 import com.lumi.opencloud.common.BaseRequest;
-import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import java.util.Map;
  * @date 2019/7/15 16:03
  * @description
  */
-@Data
 public class DeviceChildQueryRequest extends BaseRequest {
 
     private static final long serialVersionUID = -8958535676045835822L;
@@ -21,6 +19,14 @@ public class DeviceChildQueryRequest extends BaseRequest {
      * 设备id
      */
     private String did;
+
+    public String getDid() {
+        return did;
+    }
+
+    public void setDid(String did) {
+        this.did = did;
+    }
 
     @Override
     public String uri() {

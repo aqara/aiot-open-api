@@ -1,7 +1,6 @@
 package com.lumi.opencloud.model.v1.request;
 
 import com.lumi.opencloud.common.BaseRequest;
-import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import java.util.Map;
  * @date 2019/7/30 20:05
  * @description
  */
-@Data
 public class AuthorizeRequest extends BaseRequest {
 
     private static final long serialVersionUID = 7623426880956440718L;
@@ -41,6 +39,70 @@ public class AuthorizeRequest extends BaseRequest {
     private String account;
 
     private String password;
+
+    public String getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(String client_id) {
+        this.client_id = client_id;
+    }
+
+    public String getResponse_type() {
+        return response_type;
+    }
+
+    public void setResponse_type(String response_type) {
+        this.response_type = response_type;
+    }
+
+    public String getRedirect_uri() {
+        return redirect_uri;
+    }
+
+    public void setRedirect_uri(String redirect_uri) {
+        this.redirect_uri = redirect_uri;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public static final String RESPONSE_TYPE = "code";
 

@@ -1,7 +1,5 @@
 package com.lumi.opencloud.model.ifttt;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
 /**
@@ -9,7 +7,6 @@ import java.io.Serializable;
  * @author huangzhen
  * @date 2019/6/3
  */
-@Data
 public class IftttParam implements Serializable {
 
     /**
@@ -29,4 +26,36 @@ public class IftttParam implements Serializable {
      * 单位
      */
     private String paramUnit;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getParamId() {
+        return paramId;
+    }
+
+    public void setParamId(String paramId) {
+        this.paramId = paramId;
+    }
+
+    public String getParamType() {
+        return paramType;
+    }
+
+    public void setParamType(String paramType) {
+        this.paramType = paramType;
+    }
+
+    public String getParamUnit() {
+        return paramUnit;
+    }
+
+    public void setParamUnit(String paramUnit) {
+        this.paramUnit = paramUnit;
+    }
 }

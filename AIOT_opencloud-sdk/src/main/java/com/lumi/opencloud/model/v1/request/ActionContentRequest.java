@@ -1,7 +1,6 @@
 package com.lumi.opencloud.model.v1.request;
 
 import com.lumi.opencloud.model.ifttt.IftttParam;
-import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  * @date 2019/7/17 18:20
  * @description
  */
-@Data
+
 public class ActionContentRequest {
 
     private String did = "";
@@ -32,4 +31,52 @@ public class ActionContentRequest {
      * 参数
      */
     private List<IftttParam> params;
+
+    public String getDid() {
+        return did;
+    }
+
+    public void setDid(String did) {
+        this.did = did;
+    }
+
+    public String getSubjectModel() {
+        return subjectModel;
+    }
+
+    public void setSubjectModel(String subjectModel) {
+        this.subjectModel = subjectModel;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getDelayTimeUnit() {
+        return delayTimeUnit;
+    }
+
+    public void setDelayTimeUnit(String delayTimeUnit) {
+        this.delayTimeUnit = delayTimeUnit;
+    }
+
+    public String getDelayTime() {
+        return delayTime;
+    }
+
+    public void setDelayTime(String delayTime) {
+        this.delayTime = delayTime;
+    }
+
+    public List<IftttParam> getParams() {
+        return params;
+    }
+
+    public void setParams(List<IftttParam> params) {
+        this.params = params;
+    }
 }

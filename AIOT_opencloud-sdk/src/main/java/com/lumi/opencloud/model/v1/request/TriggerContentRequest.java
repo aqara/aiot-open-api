@@ -11,7 +11,6 @@ import java.util.List;
  * @date 2019/7/17 18:20
  * @description
  */
-@Data
 public class TriggerContentRequest {
 
     private String did = "";
@@ -34,4 +33,52 @@ public class TriggerContentRequest {
      * 参数
      */
     private List<IftttParam> params;
+
+    public String getDid() {
+        return did;
+    }
+
+    public void setDid(String did) {
+        this.did = did;
+    }
+
+    public String getSubjectModel() {
+        return subjectModel;
+    }
+
+    public void setSubjectModel(String subjectModel) {
+        this.subjectModel = subjectModel;
+    }
+
+    public String getTrigger() {
+        return trigger;
+    }
+
+    public void setTrigger(String trigger) {
+        this.trigger = trigger;
+    }
+
+    public String getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(String beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public List<IftttParam> getParams() {
+        return params;
+    }
+
+    public void setParams(List<IftttParam> params) {
+        this.params = params;
+    }
 }
