@@ -1,6 +1,8 @@
-package com.lumi.opencloud.model.v1.request.ir;
+package com.lumi.opencloud.model.ir.request;
 
 import com.lumi.opencloud.common.BaseRequest;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,30 +11,27 @@ import java.util.Map;
  * @author : yifeng.jin
  * @Version : v1.0
  * @Description :
- * @Date : 2021/3/22 3:24 下午
+ * @Date : 2021/3/22 7:24 下午
  * Copyright (C) : Lumi United Technology Co., Ltd
  */
-public class IrCategoryBrandRequest extends BaseRequest {
+@Getter
+@Setter
+public class IrLearnResultRequest extends BaseRequest {
 
-    private int categoryId;
+    private String did;
 
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
+    private String keyId;
 
     @Override
     public String uri() {
-        return "/category/brands";
+        return "/ircode/learn/result";
     }
 
     @Override
     public Map<String,Object> requestMap() {
         Map<String, Object> paramsMap = new HashMap();
-        paramsMap.put("categoryId",categoryId);
+        paramsMap.put("did",did);
+        paramsMap.put("keyId",keyId);
         return paramsMap;
     }
 }

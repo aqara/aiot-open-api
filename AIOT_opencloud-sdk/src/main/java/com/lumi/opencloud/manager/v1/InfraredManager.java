@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.lumi.opencloud.common.AiotConfig;
 import com.lumi.opencloud.common.CommonRequest;
 import com.lumi.opencloud.common.ResponseMsg;
-import com.lumi.opencloud.model.v1.request.ir.*;
+import com.lumi.opencloud.model.ir.request.*;
 import com.lumi.opencloud.util.PooledHttpClientUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +22,7 @@ public class InfraredManager extends CommonRequest {
     private static Logger log = LoggerFactory.getLogger(InfraredManager.class);
 
     /**
+     * 获取设备类型列表
      * query device type categories
      * @param aiotConfig
      * @return
@@ -41,7 +42,14 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
-    public static ResponseMsg categoryBrands(AiotConfig aiotConfig,int categoryId){
+    /**
+     * 根据设备类型获取品牌列表
+     * query category brands
+     * @param aiotConfig
+     * @param categoryId
+     * @return
+     */
+    public static ResponseMsg categoryBrands(AiotConfig aiotConfig,String categoryId){
         try {
             IrCategoryBrandRequest irCategoryBrandRequest = new IrCategoryBrandRequest();
             irCategoryBrandRequest.setCategoryId(categoryId);
@@ -57,6 +65,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 匹配树信息
+     * match data
+     * @param aiotConfig
+     * @param irMatchDataRequest
+     * @return
+     */
     public static ResponseMsg matchData(AiotConfig aiotConfig, IrMatchDataRequest irMatchDataRequest){
         try {
             String domain = aiotConfig.getDomain() + irMatchDataRequest.uri();
@@ -71,6 +86,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 增加遥控器
+     * add controller
+     * @param aiotConfig
+     * @param irControllerAddRequest
+     * @return
+     */
     public static ResponseMsg controllerAdd(AiotConfig aiotConfig, IrControllerAddRequest irControllerAddRequest){
         try {
             String domain = aiotConfig.getDomain() + irControllerAddRequest.uri();
@@ -85,6 +107,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 删除遥控器
+     * delete controller
+     * @param aiotConfig
+     * @param did
+     * @return
+     */
     public static ResponseMsg controllerDel(AiotConfig aiotConfig,String did){
         try {
             IrControllerDelRequest irControllerDelRequest = new IrControllerDelRequest();
@@ -101,6 +130,14 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 更新遥控器信息
+     * update controller
+     * @param aiotConfig
+     * @param did
+     * @param name
+     * @return
+     */
     public static ResponseMsg controllerUpdate(AiotConfig aiotConfig,String did,String name){
         try {
             IrControllerUpdateRequest irControllerUpdateRequest = new IrControllerUpdateRequest();
@@ -118,6 +155,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 遥控器信息
+     * controller info
+     * @param aiotConfig
+     * @param did
+     * @return
+     */
     public static ResponseMsg controllerInfo(AiotConfig aiotConfig,String did){
         try {
             IrControllerInfoRequest irControllerInfoRequest = new IrControllerInfoRequest();
@@ -134,6 +178,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 遥控器列表
+     * controller list
+     * @param aiotConfig
+     * @param did
+     * @return
+     */
     public static ResponseMsg controllerList(AiotConfig aiotConfig,String did){
         try {
             IrControllerListRequest irControllerListRequest = new IrControllerListRequest();
@@ -150,6 +201,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 单击遥控器按键
+     * click key
+     * @param aiotConfig
+     * @param irKeyClickRequest
+     * @return
+     */
     public static ResponseMsg keyClick(AiotConfig aiotConfig, IrKeyClickRequest irKeyClickRequest){
         try {
             String domain = aiotConfig.getDomain() + irKeyClickRequest.uri();
@@ -164,6 +222,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     *  查询有状态空调状态
+     *  query stateful Air condition
+     * @param aiotConfig
+     * @param did
+     * @return
+     */
     public static ResponseMsg acState(AiotConfig aiotConfig,String did){
         try {
             IrACStateRequest irACStateRequest = new IrACStateRequest();
@@ -180,6 +245,14 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 查询遥控器功能
+     * query remote functions
+     * @param aiotConfig
+     * @param did
+     * @param remoteId
+     * @return
+     */
     public static ResponseMsg remoteFunctions(AiotConfig aiotConfig,String did,int remoteId){
         try {
             IrRemoteFunctionRequest irRemoteFunctionRequest = new IrRemoteFunctionRequest();
@@ -196,6 +269,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 查询遥控器按键
+     * query remote keys
+     * @param aiotConfig
+     * @param remoteId
+     * @return
+     */
     public static ResponseMsg remoteKeys(AiotConfig aiotConfig,String remoteId){
         try {
             String domain = aiotConfig.getDomain() + "/controller/remotes/"+remoteId+"/keys";
@@ -210,6 +290,14 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 开启红外学习
+     * start to learn ircode
+     * @param aiotConfig
+     * @param did
+     * @param timeLength
+     * @return
+     */
     public static ResponseMsg learnStart(AiotConfig aiotConfig,String did,int timeLength){
         try {
             IrLearnStartRequest irLearnStartRequest = new IrLearnStartRequest();
@@ -227,6 +315,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 取消红外学习
+     * cancel learn ircode
+     * @param aiotConfig
+     * @param did
+     * @return
+     */
     public static ResponseMsg learnCancel(AiotConfig aiotConfig,String did){
         try {
             IrLearnCancelRequest irLearnCancelRequest = new IrLearnCancelRequest();
@@ -243,6 +338,14 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 查询红外学习结果
+     * query learn ircode result
+     * @param aiotConfig
+     * @param did
+     * @param keyId
+     * @return
+     */
     public static ResponseMsg learnResult(AiotConfig aiotConfig,String did,String keyId){
         try {
             IrLearnResultRequest irLearnResultRequest = new IrLearnResultRequest();
@@ -260,6 +363,13 @@ public class InfraredManager extends CommonRequest {
         return null;
     }
 
+    /**
+     * 添加自定义遥控器
+     * add custom controller
+     * @param aiotConfig
+     * @param irDeviceCustomRequest
+     * @return
+     */
     public static ResponseMsg customControllerAdd(AiotConfig aiotConfig,IrDeviceCustomRequest irDeviceCustomRequest){
         try {
             String domain = aiotConfig.getDomain() + irDeviceCustomRequest.uri();

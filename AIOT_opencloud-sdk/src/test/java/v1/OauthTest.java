@@ -5,6 +5,8 @@ import com.lumi.opencloud.common.CustomConfig;
 import com.lumi.opencloud.manager.v1.OauthManager;
 import com.lumi.opencloud.model.v1.request.AccessTokenRequest;
 import com.lumi.opencloud.model.v1.request.AuthorizeRequest;
+import com.lumi.opencloud.util.MD5Util;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +23,9 @@ public class OauthTest {
     @Test
     public void authorize() {
         AuthorizeRequest request = new AuthorizeRequest();
-        request.setClient_id(CustomConfig.Appid);
-        request.setRedirect_uri("www.aqara.com");
-        request.setResponse_type("code");
+        request.setClientId(CustomConfig.Appid);
+        request.setRedirectUri("www.aqara.com");
+        request.setResponseType("code");
         request.setState("aqara");
 
         request.setAccount("");

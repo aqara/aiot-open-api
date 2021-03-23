@@ -1,4 +1,4 @@
-package com.lumi.opencloud.model.v1.request.ir;
+package com.lumi.opencloud.model.ir.request;
 
 import lombok.Getter;
 import lombok.Setter;

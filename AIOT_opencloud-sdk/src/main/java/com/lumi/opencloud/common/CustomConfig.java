@@ -28,7 +28,7 @@ public class CustomConfig {
     /**
      * please change to your appid register in aqara open cloud
      */
-    public static String Appid = "xxxx";
+    public static String Appid = "xxx";
 
     /**
      * please change to your appkey register in aqara open cloud

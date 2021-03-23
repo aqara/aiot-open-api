@@ -1,10 +1,12 @@
 package com.lumi.opencloud.manager.v1;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lumi.opencloud.common.AiotConfig;
 import com.lumi.opencloud.model.v1.request.AccessTokenRequest;
 import com.lumi.opencloud.model.v1.request.AuthorizeRequest;
 import com.lumi.opencloud.model.v1.response.AccessTokenResponse;
+import com.lumi.opencloud.util.MD5Util;
 import com.lumi.opencloud.util.PooledHttpClientUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +29,10 @@ public class OauthManager {
      */
     public static String authorize(String domain,AuthorizeRequest request) {
         try {
-            request.setResponse_type(AuthorizeRequest.RESPONSE_TYPE);
+            request.setResponseType(AuthorizeRequest.RESPONSE_TYPE);
             String url = domain + request.uri();
-            String result = PooledHttpClientUtils.doPost(url, request.getParamsMap(),new HashMap<>(),request.getBodyMap(),false);
+            request.setPassword(MD5Util.MD5(request.getPassword()));
+            String result = PooledHttpClientUtils.doPost(url, null, JSON.toJSONString(request));
             log.info("authorize result:{}", result);
 
             return result;
