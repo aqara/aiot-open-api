@@ -60,6 +60,6 @@ public class IrControllerAddRequest extends BaseRequest {
 
     @Override
     public String uri() {
-        return null;
+        return "/controller/add";
     }
 }

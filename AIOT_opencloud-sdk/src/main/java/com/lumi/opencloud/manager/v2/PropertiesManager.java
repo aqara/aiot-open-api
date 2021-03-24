@@ -83,4 +83,48 @@ public class PropertiesManager extends CommonRequest {
         }
         return null;
     }
+
+    /**
+     * 删除历史资源
+     * delete resource history
+     * @param aiotConfig
+     * @param request
+     * @return
+     */
+    public static ResponseMsg deleteResource(AiotConfig aiotConfig,ResourceDeleteRequest request) {
+        try {
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
+            log.info("properties delete result:{},request:{}", result, JSON.toJSONString(request));
+
+            return responseDecode(aiotConfig,result,1);
+        } catch (Exception e) {
+            log.error("properties delete error:", e);
+        }
+        return null;
+    }
+
+    /**
+     * 查询资源聚合
+     * query properties statistics
+     * @param aiotConfig
+     * @param request
+     * @return
+     */
+    public static ResponseMsg resourceStatisticsQuery(AiotConfig aiotConfig,StatisticsResourceRequest request) {
+        try {
+            String body = AESUtil.encryptCbc(JSON.toJSONString(request), AESUtil.getAESKey(aiotConfig.getAppKey()));
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
+            log.info("properties Statistics query result:{},request:{}", result, JSON.toJSONString(request));
+
+            return responseDecode(aiotConfig,result,1);
+        } catch (Exception e) {
+            log.error("properties Statistics query error:", e);
+        }
+        return null;
+    }
+
+
 }

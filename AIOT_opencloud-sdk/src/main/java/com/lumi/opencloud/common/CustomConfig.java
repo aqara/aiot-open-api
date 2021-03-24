@@ -19,6 +19,8 @@ public class CustomConfig {
      * Russia: https://open-ru.aqara.com
      */
     public static final String DOMAIN = Contant.Domain.CHINA.url;
+//    public static final String DOMAIN = "https://aiot-test.aqara.cn";
+
 
     public static String DOMAIN_V1 = DOMAIN + "/3rd/v1.0/open";
 
@@ -33,7 +35,7 @@ public class CustomConfig {
     /**
      * please change to your appkey register in aqara open cloud
      */
-    public static String Appkey = "xxxx";
+    public static String Appkey = "xxx";
 
     /**
      * Choose a language：ch Chinese,en English

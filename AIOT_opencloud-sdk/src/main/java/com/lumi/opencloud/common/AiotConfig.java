@@ -1,10 +1,13 @@
 package com.lumi.opencloud.common;
 
+import lombok.Data;
+
 /**
  * @author lvyl
  * @date 2019/7/19 10:33
  * @description
  */
+@Data
 public class AiotConfig {
 
     /**
@@ -39,6 +42,8 @@ public class AiotConfig {
      */
     private String accessToken;
 
+    public AiotConfig(){}
+
     /**
      * v1.0
      * @param appId
@@ -67,46 +72,5 @@ public class AiotConfig {
         this.appKey = appKey;
         this.lang = lang;
         this.domain = domain;
-    }
-
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getAppKey() {
-        return appKey;
-    }
-
-    public void setAppKey(String appKey) {
-        this.appKey = appKey;
-    }
-
-    public String getDomain() {
-        return domain;
-    }
-
-    public void setDomain(String domain) {
-        this.domain = domain;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
     }
 }

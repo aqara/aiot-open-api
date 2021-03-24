@@ -1,4 +1,4 @@
-package com.lumi.opencloud.model.ir.request;
+package com.lumi.opencloud.model.v1.request;
 
 import com.lumi.opencloud.common.BaseRequest;
 import lombok.Getter;
@@ -11,24 +11,24 @@ import java.util.Map;
  * @author : yifeng.jin
  * @Version : v1.0
  * @Description :
- * @Date : 2021/3/22 4:43 下午
+ * @Date : 2021/3/24 9:46 下午
  * Copyright (C) : Lumi United Technology Co., Ltd
  */
 @Getter
 @Setter
-public class IrControllerListRequest extends BaseRequest {
+public class DeviceBindQueryRequest extends BaseRequest {
 
-    private String did;
+    private String bindKey;
 
     @Override
     public String uri() {
-        return "/controller/list";
+        return "/device/bind/query";
     }
 
     @Override
     public Map<String,Object> requestMap() {
         Map<String, Object> paramsMap = new HashMap();
-        paramsMap.put("did",did);
+        paramsMap.put("bindKey",bindKey);
         return paramsMap;
     }
 }

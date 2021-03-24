@@ -11,7 +11,7 @@ public class TestConfig {
     /**
      * your token
      */
-    public static String Token = "xxxx";
+    public static String Token = "xxx";
 
     /**
      * your test hub

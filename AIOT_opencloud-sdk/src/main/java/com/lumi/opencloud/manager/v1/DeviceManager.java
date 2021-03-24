@@ -24,6 +24,46 @@ public class DeviceManager extends CommonRequest {
     private static Logger log = LoggerFactory.getLogger(DeviceManager.class);
 
     /**
+     * 	获取设备bind key
+     * Get device bind key
+     * @return ResponseMsg
+     */
+    public static ResponseMsg bindKeyGet(AiotConfig aiotConfig,DeviceBindGetRequest request) {
+        try {
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
+            log.info("device BindKey get result:{},request:{}", result,JSON.toJSONString(request));
+
+            ResponseMsg<DeviceQueryResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
+            return responseMsg;
+        } catch (Exception e) {
+            log.error("device BindKey get error:", e);
+        }
+
+        return null;
+    }
+
+    /**
+     * 	查询设备
+     * Query device bind key
+     * @return ResponseMsg
+     */
+    public static ResponseMsg bindKeyQuery(AiotConfig aiotConfig,DeviceBindQueryRequest request) {
+        try {
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doGet(domain, constructHeaderV1(aiotConfig),request.requestMap());
+            log.info("device bindkey Query result:{},request:{}", result,JSON.toJSONString(request));
+
+            ResponseMsg<DeviceQueryResponse> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
+            return responseMsg;
+        } catch (Exception e) {
+            log.error("device bindkey Query error:", e);
+        }
+
+        return null;
+    }
+
+    /**
      * 	查询设备
      * Query device
      * @return ResponseMsg

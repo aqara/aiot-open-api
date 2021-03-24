@@ -96,6 +96,6 @@ public class IftttUpdateRequest extends BaseRequest {
 
     @Override
     public String uri() {
-        return null;
+        return "/ifttt/update";
     }
 }

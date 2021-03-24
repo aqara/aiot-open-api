@@ -128,4 +128,23 @@ public class ResourceManager extends CommonRequest {
 
         return null;
     }
+
+    /**
+     * 	查询资源聚合
+     *  resource historyQuery
+     * @return ResponseMsg
+     */
+    public static ResponseMsg queryResourceStatistics(AiotConfig aiotConfig,ResourceStatisticsQueryRequest request) {
+        try {
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig),JSON.toJSONString(request));
+            log.info("resource Statistics Query result:{},request:{}", result,JSON.toJSONString(request));
+
+            return JSONObject.parseObject(result,ResponseMsg.class);
+        } catch (Exception e) {
+            log.error("resource Statistics Query error:", e);
+        }
+
+        return null;
+    }
 }

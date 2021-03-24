@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author : yifeng.jin
  * @Version : v1.0
- * @Description :
+ * @Description :红外设备管理 Infrared device manager
  * @Date : 2021/3/22 2:45 下午
  * Copyright (C) : Lumi United Technology Co., Ltd
  */
