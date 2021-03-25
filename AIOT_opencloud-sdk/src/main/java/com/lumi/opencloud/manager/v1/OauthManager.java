@@ -8,6 +8,7 @@ import com.lumi.opencloud.model.v1.request.AuthorizeRequest;
 import com.lumi.opencloud.model.v1.response.AccessTokenResponse;
 import com.lumi.opencloud.util.MD5Util;
 import com.lumi.opencloud.util.PooledHttpClientUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,11 +53,14 @@ public class OauthManager {
         try {
 
             String url = domain + request.uri();
-            String result = PooledHttpClientUtils.doPost(url, new HashMap<>() , request.getParamsMap(),false);
+            String result = PooledHttpClientUtils.doPost(url, new HashMap<>() , request.getParamsMap());
             log.info("accessToken result:{}", result);
 
             AccessTokenResponse response = JSONObject.parseObject(result,AccessTokenResponse.class);
-            return response;
+            if (null != response && StringUtils.isNotBlank(response.getAccessToken())){
+                return response;
+            }
+            return null;
         } catch (Exception e) {
             log.error("accessToken error:", e);
         }

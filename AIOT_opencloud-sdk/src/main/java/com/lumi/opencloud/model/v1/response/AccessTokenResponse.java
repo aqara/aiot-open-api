@@ -12,16 +12,16 @@ public class AccessTokenResponse {
 
     private static final long serialVersionUID = 1274144137831492771L;
 
-    private String access_token;
+    private String accessToken;
 
-    private String refresh_token;
+    private String refreshToken;
 
     private String openId;
 
     private String state;
 
-    private String token_type;
+    private String tokenType;
 
-    private String expires_in;
+    private String expiresIn;
 
 }

@@ -56,7 +56,7 @@ public class AccessTokenRequest extends BaseRequest {
         paramsMap.put("clientSecret",clientSecret);
         paramsMap.put("redirectUri",redirectUri);
         paramsMap.put("grantType",grantType);
-        paramsMap.put("code",code);
+        paramsMap.put("authorizationCode",code);
         paramsMap.put("refreshToken",refreshToken);
         paramsMap.put("state",state);
         paramsMap.put("scopes",scopes);
