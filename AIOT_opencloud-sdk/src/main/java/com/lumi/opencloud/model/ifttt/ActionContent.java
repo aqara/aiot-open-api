@@ -27,6 +27,9 @@ public class ActionContent implements Serializable {
      */
     private String model;
 
+    private String delayTime;
+    private String delayTimeUnit;
+
     /**
      * 参数
      */
