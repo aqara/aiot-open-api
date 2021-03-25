@@ -36,10 +36,10 @@ public class OauthTest {
     @Test
     public void accessToken() {
         AccessTokenRequest request = new AccessTokenRequest();
-        request.setClient_id(CustomConfig.Appid);
-        request.setClient_secret(CustomConfig.Appkey);
-        request.setRedirect_uri("www.aqara.com");
-        request.setGrant_type(AccessTokenRequest.GrantType_AuthCode);
+        request.setClientId(CustomConfig.Appid);
+        request.setClientSecret(CustomConfig.Appkey);
+        request.setRedirectUri("www.aqara.com");
+        request.setGrantType(AccessTokenRequest.GrantType_AuthCode);
         request.setCode("");
         request.setState("aqara");
         OauthManager.accessToken(CustomConfig.DOMAIN,request);

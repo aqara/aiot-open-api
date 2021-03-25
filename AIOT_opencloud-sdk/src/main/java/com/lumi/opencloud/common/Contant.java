@@ -45,7 +45,7 @@ public class Contant {
          *
          */
         AUTHORIZE("/authorize/code"),
-        TOKEN("/access_token"),
+        TOKEN("/token"),
         DEVICE_CHILD_QUERY("/device/child/query"),
         DEVICE_CONNECT("/device/connect"),
         DEVICE_CONNECT_STOP("/device/connect/stop"),

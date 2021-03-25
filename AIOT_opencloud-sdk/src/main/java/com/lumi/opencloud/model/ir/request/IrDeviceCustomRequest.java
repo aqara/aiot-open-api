@@ -1,6 +1,7 @@
 package com.lumi.opencloud.model.ir.request;
 
 import com.lumi.opencloud.common.BaseRequest;
+import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -13,6 +14,7 @@ import java.util.List;
  * @Date : 2021/3/22 7:31 下午
  * Copyright (C) : Lumi United Technology Co., Ltd
  */
+@Data
 public class IrDeviceCustomRequest extends BaseRequest {
 
     /**

@@ -65,7 +65,7 @@ public class InfraredManager extends CommonRequest {
             String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null),irLearnCancelRequest.requestMap());
             log.info("Ir learn cancel result:{}", result);
 
-            ResponseMsg responseMsg = responseDecode(aiotConfig,result,1);
+            ResponseMsg responseMsg = responseDecode(aiotConfig,result,0);
             return responseMsg;
         } catch (Exception e) {
             log.error("Ir learn cancel error:", e);
@@ -111,7 +111,7 @@ public class InfraredManager extends CommonRequest {
             String domain = aiotConfig.getDomain() + request.uri();
             String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("Ir key add result:{},request:{}" , result, JSON.toJSONString(request));
-            return responseDecode(aiotConfig,result,1);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("Ir key add error:", e);
         }
@@ -151,7 +151,7 @@ public class InfraredManager extends CommonRequest {
             String domain = aiotConfig.getDomain() + request.uri();
             String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("Ir key update result:{},request:{}" , result, JSON.toJSONString(request));
-            return responseDecode(aiotConfig,result,1);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("Ir key update error:", e);
         }
@@ -173,7 +173,7 @@ public class InfraredManager extends CommonRequest {
             String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null),request.requestMap());
             log.info("Ir key info result:{}", result);
 
-            ResponseMsg responseMsg = responseDecode(aiotConfig,result,1);
+            ResponseMsg responseMsg = responseDecode(aiotConfig,result,2);
             return responseMsg;
         } catch (Exception e) {
             log.error("Ir key info error:", e);
@@ -195,7 +195,7 @@ public class InfraredManager extends CommonRequest {
             String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null));
             log.info("Ir categories result:{}", result);
 
-            ResponseMsg responseMsg = responseDecode(aiotConfig,result,1);
+            ResponseMsg responseMsg = responseDecode(aiotConfig,result,2);
             return responseMsg;
         } catch (Exception e) {
             log.error("Ir categories error:", e);
@@ -218,7 +218,7 @@ public class InfraredManager extends CommonRequest {
             String result = PooledHttpClientUtils.doGet(domain, constructHeaderV2(aiotConfig,null),request.requestMap());
             log.info("Ir key info result:{}", result);
 
-            ResponseMsg responseMsg = responseDecode(aiotConfig,result,1);
+            ResponseMsg responseMsg = responseDecode(aiotConfig,result,2);
             return responseMsg;
         } catch (Exception e) {
             log.error("Ir key info error:", e);
@@ -282,7 +282,7 @@ public class InfraredManager extends CommonRequest {
             String domain = aiotConfig.getDomain() + request.uri();
             String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("Ir key click result:{},request:{}" , result, JSON.toJSONString(request));
-            return responseDecode(aiotConfig,result,1);
+            return responseDecode(aiotConfig,result,0);
         } catch (Exception e) {
             log.error("Ir key click error:", e);
         }
