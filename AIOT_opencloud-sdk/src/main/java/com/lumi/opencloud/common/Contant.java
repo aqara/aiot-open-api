@@ -1,5 +1,9 @@
 package com.lumi.opencloud.common;
 
+import lombok.Data;
+import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author : yifeng.jin
  * @Version : v1.0
@@ -35,6 +39,7 @@ public class Contant {
      * request url
      * 请求uri
      */
+    @Getter
     public enum RequestUri{
         /**
          *
@@ -127,6 +132,16 @@ public class Contant {
 
         RequestUri(String url){
             this.url=url;
+        }
+
+        public static RequestUri getEnum(String url){
+            for (RequestUri value : RequestUri.values()) {
+                if (StringUtils.equals(url,value.getUrl())){
+                    return value;
+                }
+            }
+            return null;
+
         }
 
     }

@@ -17,17 +17,17 @@ public class AccessTokenRequest extends BaseRequest {
 
     private static final long serialVersionUID = 1274144137831492771L;
 
-    private String client_id;
+    private String clientId;
 
-    private String client_secret;
+    private String clientSecret;
 
-    private String redirect_uri;
+    private String redirectUri;
 
-    private String grant_type;
+    private String grantType;
 
     private String code;
 
-    private String refresh_token;
+    private String refreshToken;
 
     private String state;
 
@@ -38,13 +38,13 @@ public class AccessTokenRequest extends BaseRequest {
 
     @Override
     public String uri() {
-        return "/access_token";
+        return "/token";
     }
 
     @Override
     public boolean paramValid() {
-        if(StringUtils.isBlank(client_id) || StringUtils.isBlank(client_secret)
-                || StringUtils.isBlank(grant_type) ){
+        if(StringUtils.isBlank(clientId) || StringUtils.isBlank(clientSecret)
+                || StringUtils.isBlank(grantType) ){
             return false;
         }
         return super.paramValid();
@@ -52,12 +52,12 @@ public class AccessTokenRequest extends BaseRequest {
 
     public Map<String,String> getParamsMap() {
         Map<String, String> paramsMap = new HashMap();
-        paramsMap.put("client_id",client_id);
-        paramsMap.put("client_secret",client_secret);
-        paramsMap.put("redirect_uri",redirect_uri);
-        paramsMap.put("grant_type",grant_type);
+        paramsMap.put("clientId",clientId);
+        paramsMap.put("clientSecret",clientSecret);
+        paramsMap.put("redirectUri",redirectUri);
+        paramsMap.put("grantType",grantType);
         paramsMap.put("code",code);
-        paramsMap.put("refresh_token",refresh_token);
+        paramsMap.put("refreshToken",refreshToken);
         paramsMap.put("state",state);
         paramsMap.put("scopes",scopes);
         return paramsMap;
