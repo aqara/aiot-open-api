@@ -18,8 +18,8 @@ public class CustomConfig {
      * Korea: https://open-kr.aqara.com
      * Russia: https://open-ru.aqara.com
      */
-    //public static final String DOMAIN = Contant.Domain.CHINA.url;
-    public static final String DOMAIN = "https://aiot-test.aqara.cn";
+    public static final String DOMAIN = Contant.Domain.CHINA.url;
+    //public static final String DOMAIN = "https://aiot-test.aqara.cn";
 
 
     public static String DOMAIN_V1 = DOMAIN + "/3rd/v1.0/open";
@@ -30,12 +30,12 @@ public class CustomConfig {
     /**
      * please change to your appid register in aqara open cloud
      */
-    public static String Appid = "af101319123e5d55302df999";
+    public static String Appid = "xxxx";
 
     /**
      * please change to your appkey register in aqara open cloud
      */
-    public static String Appkey = "jfjW9QggXw7b4cc7uynuygZ4iIrdNuwz";
+    public static String Appkey = "xxxx";
 
     /**
      * Choose a language：ch Chinese,en English
