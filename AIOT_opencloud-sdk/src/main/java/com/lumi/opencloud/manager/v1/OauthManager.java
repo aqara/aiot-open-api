@@ -3,6 +3,7 @@ package com.lumi.opencloud.manager.v1;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lumi.opencloud.common.AiotConfig;
+import com.lumi.opencloud.common.ResponseMsg;
 import com.lumi.opencloud.model.v1.request.AccessTokenRequest;
 import com.lumi.opencloud.model.v1.request.AuthorizeRequest;
 import com.lumi.opencloud.model.v1.response.AccessTokenResponse;
@@ -28,15 +29,14 @@ public class OauthManager {
      * Query device
      * @return ResponseMsg
      */
-    public static String authorize(String domain,AuthorizeRequest request) {
+    public static ResponseMsg authorize(String domain,AuthorizeRequest request) {
         try {
             request.setResponseType(AuthorizeRequest.RESPONSE_TYPE);
             String url = domain + request.uri();
             request.setPassword(MD5Util.MD5(request.getPassword()));
             String result = PooledHttpClientUtils.doPost(url, null, JSON.toJSONString(request));
             log.info("authorize result:{}", result);
-
-            return result;
+            return JSONObject.parseObject(result, ResponseMsg.class);
         } catch (Exception e) {
             log.error("authorize error:", e);
         }
@@ -49,18 +49,15 @@ public class OauthManager {
      * Query device
      * @return ResponseMsg
      */
-    public static AccessTokenResponse accessToken(String domain,AccessTokenRequest request) {
+    public static ResponseMsg accessToken(String domain,AccessTokenRequest request) {
         try {
 
             String url = domain + request.uri();
             String result = PooledHttpClientUtils.doPost(url, new HashMap<>() , request.getParamsMap());
             log.info("accessToken result:{}", result);
 
-            AccessTokenResponse response = JSONObject.parseObject(result,AccessTokenResponse.class);
-            if (null != response && StringUtils.isNotBlank(response.getAccessToken())){
-                return response;
-            }
-            return null;
+
+            return JSONObject.parseObject(result, ResponseMsg.class);
         } catch (Exception e) {
             log.error("accessToken error:", e);
         }

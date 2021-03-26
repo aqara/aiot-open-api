@@ -253,7 +253,7 @@ public class InfraredManager extends CommonRequest {
      * @param controllerIds
      * @return
      */
-    public static ResponseMsg controllerKeys(AiotConfig aiotConfig, List<Integer> controllerIds){
+    public static ResponseMsg controllerKeys(AiotConfig aiotConfig, String controllerIds){
         try {
             IrControllerKeysRequest request = new IrControllerKeysRequest();
             request.setControllerIds(controllerIds);

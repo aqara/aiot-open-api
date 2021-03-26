@@ -119,7 +119,7 @@ public class PropertiesManager extends CommonRequest {
             String result = PooledHttpClientUtils.doPost(domain, constructHeaderV2(aiotConfig,body), body);
             log.info("properties Statistics query result:{},request:{}", result, JSON.toJSONString(request));
 
-            return responseDecode(aiotConfig,result,1);
+            return responseDecode(aiotConfig,result,2);
         } catch (Exception e) {
             log.error("properties Statistics query error:", e);
         }

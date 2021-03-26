@@ -19,7 +19,7 @@ import java.util.Map;
 @Setter
 public class IrControllerKeysRequest extends BaseRequest {
 
-    private List<Integer> controllerIds;
+    private String controllerIds;
 
     @Override
     public String uri() {
