@@ -44,6 +44,8 @@ public class AuthorizeRequest extends BaseRequest {
 
     private String password;
 
+    private String authCode;
+
     public static final String RESPONSE_TYPE = "code";
 
     @Override
