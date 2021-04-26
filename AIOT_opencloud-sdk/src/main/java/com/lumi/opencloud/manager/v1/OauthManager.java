@@ -33,7 +33,9 @@ public class OauthManager {
         try {
             request.setResponseType(AuthorizeRequest.RESPONSE_TYPE);
             String url = domain + request.uri();
-            request.setPassword(MD5Util.MD5(request.getPassword()));
+            if (StringUtils.isNotBlank(request.getPassword())){
+                request.setPassword(MD5Util.MD5(request.getPassword()));
+            }
             String result = PooledHttpClientUtils.doPost(url, null, JSON.toJSONString(request));
             log.info("authorize result:{}", result);
             return JSONObject.parseObject(result, ResponseMsg.class);
