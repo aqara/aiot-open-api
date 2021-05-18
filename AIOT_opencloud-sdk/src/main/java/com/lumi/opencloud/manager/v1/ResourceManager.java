@@ -7,6 +7,7 @@ import com.lumi.opencloud.common.CommonRequest;
 import com.lumi.opencloud.common.ResponseMsg;
 import com.lumi.opencloud.model.v1.request.*;
 import com.lumi.opencloud.model.v1.response.ResourceHistoryQueryResponse;
+import com.lumi.opencloud.model.v1.response.ResourceNameQueryResponse;
 import com.lumi.opencloud.model.v1.response.ResourceQueryResponse;
 import com.lumi.opencloud.util.PooledHttpClientUtils;
 import org.slf4j.Logger;
@@ -37,6 +38,28 @@ public class ResourceManager extends CommonRequest {
             log.info("resource query result:{},request:{}", result,JSON.toJSONString(request));
 
             ResponseMsg<List<ResourceQueryResponse>> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
+            return responseMsg;
+        } catch (Exception e) {
+            log.error("resource query error:", e);
+        }
+
+        return null;
+    }
+
+    /**
+     * 	查询资源
+     *  Query resource
+     * @return ResponseMsg
+     */
+    public static ResponseMsg queryName(AiotConfig aiotConfig, List<ResourceQueryInfo> infoList) {
+        try {
+            ResourceNameQueryRequest request = new ResourceNameQueryRequest();
+            request.setData(infoList);
+            String domain = aiotConfig.getDomain() + request.uri();
+            String result = PooledHttpClientUtils.doPost(domain, constructHeaderV1(aiotConfig), JSON.toJSONString(request));
+            log.info("resource name query result:{},request:{}", result,JSON.toJSONString(request));
+
+            ResponseMsg<List<ResourceNameQueryResponse>> responseMsg = JSONObject.parseObject(result,ResponseMsg.class);
             return responseMsg;
         } catch (Exception e) {
             log.error("resource query error:", e);

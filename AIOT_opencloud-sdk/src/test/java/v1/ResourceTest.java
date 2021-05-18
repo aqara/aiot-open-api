@@ -41,6 +41,17 @@ public class ResourceTest {
     }
 
     @Test
+    public void queryName() {
+        List<ResourceQueryInfo> infoList = new ArrayList<>();
+        ResourceQueryInfo info = new ResourceQueryInfo();
+        info.setDid(TestConfig.HubDid);
+        info.setAttrs(Arrays.asList("brightness_level","corridor_light_status"));
+        infoList.add(info);
+        ResponseMsg<List<ResourceQueryResponse>> responseMsg = ResourceManager.queryName(testV1Config(),infoList);
+        log.info("resource query responseMsg:{}",responseMsg.toString());
+    }
+
+    @Test
     public void update() {
         ResourceUpdateRequest request = new ResourceUpdateRequest();
         request.setDid(TestConfig.HubDid);
